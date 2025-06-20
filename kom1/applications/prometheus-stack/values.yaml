@@ -1,0 +1,123 @@
+prometheus-stack:
+  alertmanager:
+    config:
+      route:
+        group_by: [namespace, job, service]
+        group_wait: 30s
+        group_interval: 2m
+        repeat_interval: 12h
+        receiver: default
+        routes: []
+      receivers:
+        - name: 'null'
+        - name: default
+          # slack_configs:
+          #   - api_url_file: /etc/alertmanager/secrets/alertmanager-custom-secret/slack-api-url-file
+          #     channel: "#deranged-kom1-cluster"
+          #     send_resolved: true
+
+    ingress:
+      enabled: false
+      ingressClassName: nginx
+      # annotations:
+      #   cert-manager.io/cluster-issuer: letsencrypt
+      #   nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.eu-1.deranged.dk/oauth2/start?rd=$escaped_request_uri
+      #   nginx.ingress.kubernetes.io/auth-url: https://oauth2-proxy.eu-1.deranged.dk/oauth2/auth
+      # hosts:
+      #   - alertmanager.kom1.deranged.dk
+      # tls:
+      #   - secretName: alertmanager.kom1.deranged.dk-tls
+      #     hosts:
+      #       - alertmanager.kom1.deranged.dk
+
+    alertmanagerSpec:
+      replicas: 2
+      # volumes:
+      #   - name: alertmanager-custom-secret
+      #     secret:
+      #       secretName: alertmanager-custom-secret
+      #       items:
+      #       - key: url
+      #         path: slack-api-url-file
+      # volumeMounts:
+      #   - mountPath: /etc/alertmanager/secrets/alertmanager-custom-secret
+      #     name: alertmanager-custom-secret
+      #     readOnly: true
+
+
+  grafana:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      hosts:
+        - grafana.kom1.deranged.dk
+      tls:
+        - secretName: grafana.kom1.deranged.dk-tls
+          hosts:
+            - grafana.kom1.deranged.dk
+
+    additionalDataSources:
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://loki-headless:3100
+
+    grafana.ini:
+      server:
+        domain: grafana.kom1.deranged.dk
+        root_url: https://grafana.kom1.deranged.dk
+      auth.anonymous:
+        enabled: false
+      auth.basic:
+        disable_login_form: true
+      auth:
+        signout_redirect_url: https://auth.kom1.deranged.dk/application/o/grafana-kom1/end-session/
+        oauth_auto_login: true
+      auth.generic_oauth:
+          name: Meningspunktet SSO
+          enabled: true
+          client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
+          client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
+          scopes: openid profile email
+          auth_url: https://auth.kom1.deranged.dk/application/o/authorize/
+          token_url: https://auth.kom1.deranged.dk/application/o/token/
+          api_url: https://auth.kom1.deranged.dk/application/o/userinfo/
+          # Optionally map user groups to Grafana roles
+          role_attribute_path: contains(groups, 'grafana') && 'Admin' || 'Viewer'
+    extraSecretMounts:
+      - name: auth-generic-oauth-secret-mount
+        secretName: auth-generic-oauth-secret
+        defaultMode: 0440
+        mountPath: /etc/secrets/auth_generic_oauth
+        readOnly: true
+
+  prometheus:
+    ingress:
+      enabled: false
+      # ingressClassName: nginx
+      # annotations:
+      #   cert-manager.io/cluster-issuer: letsencrypt
+      #   nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.eu-1.deranged.dk/oauth2/start?rd=$escaped_request_uri
+      #   nginx.ingress.kubernetes.io/auth-url: https://oauth2-proxy.eu-1.deranged.dk/oauth2/auth
+      # hosts:
+      #   - prometheus.kom1.deranged.dk
+      # tls:
+      #   - secretName: prometheus.kom1.deranged.dk-tls
+      #     hosts:
+      #       - prometheus.kom1.deranged.dk
+
+    prometheusSpec:
+      retention: 7d
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 10Gi
+
+  defaultRules:
+    rules:
+      kubeProxy: false

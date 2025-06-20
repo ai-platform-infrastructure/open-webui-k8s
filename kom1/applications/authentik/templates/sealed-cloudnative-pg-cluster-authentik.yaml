@@ -1,0 +1,19 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: cloudnative-pg-cluster-authentik
+  namespace: authentik
+spec:
+  encryptedData:
+    password: AgCEl8uvgCyFir+deeIpYuC3/10w4W7Az0OvUIbS8W24lhhUeWPyb1gPUJJOE+V3U0AiMujhn92pZ6Rh4ERxGU6qP/xL5R4im5UNh7dV4W1E9Ztzf6ae5CQgAQ9fM2YzMxXSeX8cq23eTYyZs6gYg28PTz+tMKnu8TbTNOlJARilf+jsFvzf5FIDb+h387HvHxGi0hcQCdmCWHYVTLBozitFFuTNLpHxX5Vu1lpg3s/PpeEYi5Sv0YX1N92/FF5bkbhQ9mQTkjTO8BrAbFN/ijD1qeGJHsCE45GlkvE/BFwKwOSiZzCd7mqfYt76YhScCzh1hE1Y3lRjPs7wwSyUjH+x/q6d5QQyNvvD3lEkP36ziGBE4HiQJ2G27JbR8Om8V5Yau5Y/2ieSYJZVaTwZivL0G5znpI6pJxRcAlhMZnzlEytZuKZRhQA1kSm5u6nT21dzJbX/Pl2mpVD6fHxsrqRTrzEj65zN8BDl8JMw3rGo+D+gjtt/iaDWFRns5x1/lSswSmMrKgPDHRdeIXNakqJoarxHXcand9fc2Q4MnYkntCosGKq6n8gtsSgsCA80avWb6Pw6baFVHzMbMFK6d/A5BrxaRbgel17v4+Y6OZrXR6GBSkHgks/yxtXL4AchjKdMT+2BWotEsdH0EqCAYcOnbS9XVm+Itpk7QEmVx5FsXbDsI+/8/b2sYr4le078p6/qvPKOXiZ9yQsu/Wtgot7owWCfsJMJx00kb1R61RV6pUlsP559WgPDWsl3RMeIh1H0LLscFGd/dGi++lLWsyFV
+    username: AgA5fcc9svTC1ZntAAOcFH5izfFbNZyIC9FIQhNOdsuDbwuckszyiwBHgRSBVG5Tzu6Tq7G40V2mguUIybTbxio+0Yo4pcMpnN8J9CYGL/f8V8dEQH2iP+vue3dbngVL5d+sl2PEIizqFkHBR1UkDuL4T27OR1wzW3C9bbr1NvggQEZrzW5WmlVH1JNDIn8WB//aEHEX37sJbvjQTny744KNVPIFn7T2uwBo7aYhPNBoYC1oNDRKPM9BnsdsEfZwdEPW3pY4Q0SVknet1qmSqGv4fvAKqF0Qo9O6lOnuOihjLEOyxyhvatbleFRVfdvmLvIw4UX7tp6Tuqm6c620C26IL93RxrEO+d0gEPkCxQrALe5ljT6bRONTPc1vsfkpQfMMJhtVjNRB7Oo/O7h5gm70xy6oRG949RKdYxgFHtGkjYZOq5cR1EKHA3AnqslaPTl0VGNkXpRVH39DBCCXXsQ8hnmi+sRHsEOmUY2RgOBQbs/gTit9xPJrRjRlSfXWJCwVL1aKoRTs1CYZbr5r68EXOmjITM8KoxLe5GhDP4j0AlssAibUDJXJwpnj0SUDnyeYtwbaGOMSS0odM83AO6H/BtwVLc03SjlwOLWCA9PWq1zQZCnOOxeTCKhUWBfDusiMFBBjj2+v1F7fye0Kv+9SbEJk5psf0996zQyy7jwpUe7HBtogEC5Zcx/Q/g7ZlLxutjF6fwkDms0=
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        cnpg.io/reload: "true"
+      name: cloudnative-pg-cluster-authentik
+      namespace: authentik
+    type: kubernetes.io/basic-auth

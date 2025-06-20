@@ -1,0 +1,26 @@
+apps:
+  - name: argo-cd-resources
+    project: argo-cd
+    namespace: argo-cd
+    automated: true
+
+  - name: argo-cd
+    project: argo-cd
+    namespace: argo-cd
+    automated: true
+
+  # - name: prometheus-stack
+  #   project: monitoring
+  #   namespace: monitoring
+  #   automated: true
+  #   syncOptions:
+  #     - ServerSideApply=true
+
+  # - name: authentik
+  #   project: authentik
+  #   namespace: authentik
+  #   automated: true
+  #   valueFiles:
+  #     - authentik-values.yaml
+  #     - cloudnative-pg-values.yaml
+  #     - redis-replication-values.yaml
