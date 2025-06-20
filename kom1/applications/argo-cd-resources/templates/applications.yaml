@@ -8,7 +8,7 @@ metadata:
 spec:
   project: {{ .project }}
   source:
-    repoURL: https://gitlab.deranged.dk/meningspunktet/gitops.git
+    repoURL: https://github.com/ai-platform-infrastructure/open-webui-k8s.git
     path: kom1/applications/{{ .path | default .name }}
     targetRevision: HEAD
     helm:
