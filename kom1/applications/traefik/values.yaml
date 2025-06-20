@@ -669,7 +669,7 @@ traefik:
       # The port protocol (TCP/UDP)
       protocol: TCP
       # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
-      nodePort:  # @schema type:[integer, null]; minimum:0
+      nodePort: 30080 # @schema type:[integer, null]; minimum:0
       redirections:
         # -- Port Redirections
         # Added in 2.2, one can make permanent redirects via entrypoints.
@@ -710,7 +710,7 @@ traefik:
       ## -- The port protocol (TCP/UDP)
       protocol: TCP
       # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
-      nodePort:  # @schema type:[integer, null]; minimum:0
+      nodePort: 30433 # @schema type:[integer, null]; minimum:0
       # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol)
       appProtocol:  # @schema type:[string, null]
       # -- See [upstream documentation](https://doc.traefik.io/traefik/routing/entrypoints/#allowacmebypass)
