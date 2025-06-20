@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: traefik
+  namespace: argo-cd
+spec:
+  destinations:
+  - name: in-cluster
+    namespace: traefik
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  orphanedResources:
+    warn: false
+  sourceRepos:
+  - https://github.com/ai-platform-infrastructure/open-webui-k8s.git # git repository

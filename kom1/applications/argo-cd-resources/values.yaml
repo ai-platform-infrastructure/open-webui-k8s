@@ -9,6 +9,12 @@ apps:
     namespace: argo-cd
     automated: true
 
+  - name: traefik
+    project: traefik
+    namespace: traefik
+    automated: true
+
+
   # - name: prometheus-stack
   #   project: monitoring
   #   namespace: monitoring
