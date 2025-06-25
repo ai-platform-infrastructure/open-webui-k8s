@@ -28,6 +28,8 @@ apps:
     project: cloudnative-pg-operator
     namespace: cloudnative-pg-operator
     automated: true
+    syncOptions:
+      - ServerSideApply=true
 
   # - name: prometheus-stack
   #   project: monitoring
