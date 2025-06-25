@@ -19,6 +19,10 @@ apps:
     namespace: kube-system
     automated: true
 
+  - name: cert-manager
+    project: cert-manager
+    namespace: cert-manager
+    automated: true
 
   # - name: prometheus-stack
   #   project: monitoring
