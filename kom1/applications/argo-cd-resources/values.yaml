@@ -16,7 +16,7 @@ apps:
 
   - name: sealed-secrets
     project: sealed-secrets
-    namespace: sealed-secrets
+    namespace: kube-system
     automated: true
 
 
