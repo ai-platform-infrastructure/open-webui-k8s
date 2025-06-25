@@ -45,11 +45,11 @@ apps:
   #   syncOptions:
   #     - ServerSideApply=true
 
-  # - name: authentik
-  #   project: authentik
-  #   namespace: authentik
-  #   automated: true
-  #   valueFiles:
-  #     - authentik-values.yaml
-  #     - cloudnative-pg-values.yaml
-  #     - redis-replication-values.yaml
+  - name: authentik
+    project: authentik
+    namespace: authentik
+    automated: true
+    valueFiles:
+      - authentik-values.yaml
+      - cloudnative-pg-values.yaml
+      - redis-replication-values.yaml
