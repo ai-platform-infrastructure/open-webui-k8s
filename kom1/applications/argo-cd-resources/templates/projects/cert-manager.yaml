@@ -8,6 +8,9 @@ spec:
   - name: in-cluster
     namespace: cert-manager
     server: https://kubernetes.default.svc
+  - name: in-cluster
+    namespace: kube-system
+    server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace
