@@ -35,6 +35,8 @@ apps:
     project: redis-operator
     namespace: redis-operator
     automated: true
+    syncOptions:
+      - ServerSideApply=true
 
   # - name: prometheus-stack
   #   project: monitoring
