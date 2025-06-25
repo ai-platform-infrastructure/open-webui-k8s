@@ -24,6 +24,11 @@ apps:
     namespace: cert-manager
     automated: true
 
+  - name: cloudnative-pg-operator
+    project: cloudnative-pg-operator
+    namespace: cloudnative-pg-operator
+    automated: true
+
   # - name: prometheus-stack
   #   project: monitoring
   #   namespace: monitoring
