@@ -2,4 +2,4 @@
 
 # used to bootstrap the app of apps
 
-helm template . | kubectl apply -f -
+helm template argo-cd-resources . -n argo-cd | kubectl apply -f -
