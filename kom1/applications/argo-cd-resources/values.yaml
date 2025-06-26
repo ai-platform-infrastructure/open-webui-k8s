@@ -24,6 +24,13 @@ apps:
     namespace: cert-manager
     automated: true
 
+  - name: prometheus-stack
+    project: monitoring
+    namespace: monitoring
+    automated: true
+    syncOptions:
+      - ServerSideApply=true
+
   - name: cloudnative-pg-operator
     project: cloudnative-pg-operator
     namespace: cloudnative-pg-operator
@@ -37,13 +44,6 @@ apps:
     automated: true
     syncOptions:
       - ServerSideApply=true
-
-  # - name: prometheus-stack
-  #   project: monitoring
-  #   namespace: monitoring
-  #   automated: true
-  #   syncOptions:
-  #     - ServerSideApply=true
 
   - name: authentik
     project: authentik
