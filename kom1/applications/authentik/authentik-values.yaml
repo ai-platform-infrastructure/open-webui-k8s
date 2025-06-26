@@ -587,7 +587,8 @@ authentik:
       # -- enable an ingress resource for the authentik server
       enabled: true
       # -- additional ingress annotations
-      annotations: {}
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
       # -- additional ingress labels
       labels: {}
       # -- defines which ingress controller will implement the resource
