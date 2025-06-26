@@ -218,7 +218,7 @@ argo-cd:
       oidc.config: |
         name: kom1 SSO
         issuer: https://auth.kom1.deranged.dk/application/o/argocd-kom1/
-        clientID:
+        clientID: bJDCFviyQcUXVIr2uXqbos5l6ZjIjBZlY0j647T4
         clientSecret: $oidc-authentik-client-secret:oidc.authentik.clientSecret
         requestedScopes: [openid, profile, email, groups]
 
