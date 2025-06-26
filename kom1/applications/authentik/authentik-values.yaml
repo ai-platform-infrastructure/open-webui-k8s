@@ -151,6 +151,8 @@ authentik:
     # don't change this after the first install
     secret_key: ""
 
+    bootstrap_password: uckhz9UN6TrEfYC0FzQ7vqZXL3nupc1K7YHncGOvul7qqlWDbfFZewjOS1SrRYWS
+
     events:
       context_processors:
         # -- Path for the GeoIP City database. If the file doesn't exist, GeoIP features are disabled.
