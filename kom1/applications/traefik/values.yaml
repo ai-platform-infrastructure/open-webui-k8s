@@ -710,7 +710,7 @@ traefik:
       ## -- The port protocol (TCP/UDP)
       protocol: TCP
       # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
-      nodePort: 30433 # @schema type:[integer, null]; minimum:0
+      nodePort: 30443 # @schema type:[integer, null]; minimum:0
       # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol)
       appProtocol:  # @schema type:[string, null]
       # -- See [upstream documentation](https://doc.traefik.io/traefik/routing/entrypoints/#allowacmebypass)
