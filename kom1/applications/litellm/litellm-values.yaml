@@ -78,10 +78,10 @@ ingress:
 # masterkey: changeit
 
 # if set, use this secret for the master key; otherwise, autogenerate a new one
-masterkeySecretName: ""
+masterkeySecretName: "litellm-secrets"
 
 # if set, use this secret key for the master key; otherwise, use the default key
-masterkeySecretKey: ""
+masterkeySecretKey: "PROXY_MASTER_KEY"
 
 # The elements within proxy_config are rendered as config.yaml for the proxy
 #  Examples: https://github.com/BerriAI/litellm/tree/main/litellm/proxy/example_config_yaml
@@ -146,27 +146,13 @@ tolerations: []
 affinity: {}
 
 db:
-  # Use an existing postgres server/cluster
-  useExisting: true
-
-  # How to connect to the existing postgres server/cluster
-  endpoint: localhost
+  endpoint: litellm-cloudnative-pg-rw
   database: litellm
   url: postgresql://$(DATABASE_USERNAME):$(DATABASE_PASSWORD)@$(DATABASE_HOST)/$(DATABASE_NAME)
   secret:
-    name: postgres
+    name: cloudnative-pg-cluster-litellm
     usernameKey: username
     passwordKey: password
-
-  # Use the Stackgres Helm chart to deploy an instance of a Stackgres cluster.
-  #  The Stackgres Operator must already be installed within the target
-  #  Kubernetes cluster.
-  # TODO: Stackgres deployment currently unsupported
-  useStackgresOperator: false
-
-  # Use the Postgres Helm chart to create a single node, stand alone postgres
-  #  instance.  See the "postgresql" top level key for additional configuration.
-  deployStandalone: true
 
 # Prisma migration job settings
 migrationJob:
