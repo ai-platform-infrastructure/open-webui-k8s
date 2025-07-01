@@ -106,8 +106,14 @@ litellm:
           api_key: os.environ/CA_VLLM_MISTRAL_API_KEY
           api_base: https://vllm.srvitkcaiaavllm01.itkdev.dk/v1
     general_settings:
+      block_robots: true
+      disable_error_logs: True
       allow_requests_on_db_unavailable: True
       master_key: os.environ/PROXY_MASTER_KEY
+    litellm_settings:
+      request_timeout: 600
+      set_verbose: False
+      json_logs: true
 
   resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious
