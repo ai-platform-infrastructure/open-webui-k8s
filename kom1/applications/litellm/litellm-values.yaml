@@ -12,7 +12,7 @@ litellm:
 
   imagePullSecrets: []
   nameOverride: "litellm"
-  fullnameOverride: ""
+  fullnameOverride: "litellm"
 
   serviceAccount:
     # Specifies whether a service account should be created
