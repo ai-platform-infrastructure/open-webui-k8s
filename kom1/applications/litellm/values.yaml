@@ -1,0 +1,193 @@
+# Default values for litellm.
+replicaCount: 1
+
+image:
+  # Use "ghcr.io/berriai/litellm-database" for optimized image with database
+  repository: ghcr.io/berriai/litellm-database
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  # tag: "main-latest"
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: "litellm"
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# annotations for litellm deployment
+deploymentAnnotations: {}
+# annotations for litellm pods
+podAnnotations: {}
+podLabels: {}
+
+# At the time of writing, the litellm docker image requires write access to the
+#  filesystem on startup so that prisma can install some dependencies.
+podSecurityContext: {}
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #     - ALL
+  # readOnlyRootFilesystem: false
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# A list of Kubernetes Secret objects that will be exported to the LiteLLM proxy
+#  pod as environment variables.  These secrets can then be referenced in the
+#  configuration file (or "litellm" ConfigMap) with `os.environ/<Env Var Name>`
+environmentSecrets: []
+  # - litellm-env-secret
+
+# A list of Kubernetes ConfigMap objects that will be exported to the LiteLLM proxy
+#  pod as environment variables.  The ConfigMap kv-pairs can then be referenced in the
+#  configuration file (or "litellm" ConfigMap) with `os.environ/<Env Var Name>`
+environmentConfigMaps: []
+  # - litellm-env-configmap
+
+service:
+  type: ClusterIP
+  port: 4000
+  # If service type is `LoadBalancer` you can
+  # optionally specify loadBalancerClass
+  # loadBalancerClass: tailscale
+
+ingress:
+  enabled: true
+  className: "traefik"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+  hosts:
+    - host: litellm.ai.itkdev.dk
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# masterkey: changeit
+
+# if set, use this secret for the master key; otherwise, autogenerate a new one
+masterkeySecretName: ""
+
+# if set, use this secret key for the master key; otherwise, use the default key
+masterkeySecretKey: ""
+
+# The elements within proxy_config are rendered as config.yaml for the proxy
+#  Examples: https://github.com/BerriAI/litellm/tree/main/litellm/proxy/example_config_yaml
+#  Reference: https://docs.litellm.ai/docs/proxy/configs
+proxy_config:
+  model_list:
+    - model_name: Mistral-Large
+      litellm_params:
+        model: azure_ai/Mistral-Large-2411
+        api_base: https://Mistral-Large-2411-ITK.swedencentral.models.ai.azure.com/
+        api_key: os.environ/CA_AZURE_MISTRAL_API_KEY
+    - model_name: gpt-4o
+      litellm_params:
+        model: azure_ai/gpt-4o
+        api_base: https://itkai-caiaa-ai-services.services.ai.azure.com/
+        api_key: os.environ/CA_AZURE_GTP_4O_API_KEY
+        api_version: "2024-10-21"
+    - model_name: Mistral-7b
+      litellm_params:
+        model: openai/mistralai/Mistral-7B-Instruct-v0.3
+        api_key: os.environ/CA_VLLM_MISTRAL_API_KEY
+        api_base: https://vllm.srvitkcaiaavllm01.itkdev.dk/v1
+  general_settings:
+    master_key: os.environ/PROXY_MASTER_KEY
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional volumes on the output Deployment definition.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+db:
+  # Use an existing postgres server/cluster
+  useExisting: true
+
+  # How to connect to the existing postgres server/cluster
+  endpoint: localhost
+  database: litellm
+  url: postgresql://$(DATABASE_USERNAME):$(DATABASE_PASSWORD)@$(DATABASE_HOST)/$(DATABASE_NAME)
+  secret:
+    name: postgres
+    usernameKey: username
+    passwordKey: password
+
+  # Use the Stackgres Helm chart to deploy an instance of a Stackgres cluster.
+  #  The Stackgres Operator must already be installed within the target
+  #  Kubernetes cluster.
+  # TODO: Stackgres deployment currently unsupported
+  useStackgresOperator: false
+
+  # Use the Postgres Helm chart to create a single node, stand alone postgres
+  #  instance.  See the "postgresql" top level key for additional configuration.
+  deployStandalone: true
+
+# Prisma migration job settings
+migrationJob:
+  enabled: true # Enable or disable the schema migration Job
+  retries: 3 # Number of retries for the Job in case of failure
+  backoffLimit: 4 # Backoff limit for Job restarts
+  disableSchemaUpdate: false # Skip schema migrations for specific environments. When True, the job will exit with code 0.
+  annotations: {}
+  ttlSecondsAfterFinished: 120
+  extraContainers: []
+
+# Additional environment variables to be added to the deployment as a map of key-value pairs
+envVars: {
+    # USE_DDTRACE: "true"
+}
+
+# Additional environment variables to be added to the deployment as a list of k8s env vars
+extraEnvVars: {
+    # - name: EXTRA_ENV_VAR
+    #   value: EXTRA_ENV_VAR_VALUE
+}
+
+
+
