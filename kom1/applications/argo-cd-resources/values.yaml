@@ -53,3 +53,11 @@ apps:
       - authentik-values.yaml
       - cloudnative-pg-values.yaml
       - redis-replication-values.yaml
+
+  - name: litellm
+    project: litellm
+    namespace: litellm
+    automated: true
+    valueFiles:
+      - litellm-values.yaml
+      - cloudnative-pg-values.yaml

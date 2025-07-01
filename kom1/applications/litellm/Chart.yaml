@@ -1,0 +1,11 @@
+apiVersion: v2
+name: litellm
+version: 0.0.4
+dependencies:
+    - name: litellm
+      version: 0.0.6
+      repository: https://itk-dev.github.io/helm-charts
+    - name: cluster
+      alias: cloudnative-pg
+      version: 0.3.1
+      repository: https://cloudnative-pg.github.io/charts
