@@ -71,10 +71,10 @@ litellm:
         paths:
           - path: /
             pathType: ImplementationSpecific
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
+    tls:
+      - hosts:
+          - litellm.ai.itkdev.dk
+        secretName: litellm.ai.itkdev.dk-tls
 
   # masterkey: changeit
 
