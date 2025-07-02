@@ -61,3 +61,10 @@ apps:
     valueFiles:
       - litellm-values.yaml
       - cloudnative-pg-values.yaml
+
+  - name: tika
+    project: tika
+    namespace: tika
+    automated: true
+    valueFiles:
+      - values.yaml

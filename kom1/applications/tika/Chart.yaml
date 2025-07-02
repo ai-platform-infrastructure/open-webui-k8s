@@ -1,0 +1,7 @@
+apiVersion: v2
+name: tika
+version: 0.0.1
+dependencies:
+    - name: tika
+      version: 2.9.0
+      repository: https://apache.jfrog.io/artifactory/tika
