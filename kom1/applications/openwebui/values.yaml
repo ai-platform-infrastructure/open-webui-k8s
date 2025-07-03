@@ -264,7 +264,83 @@ open-webui:
           key: password
     - name: DATABASE_URL
       value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@cloudnative-pg-cluster-rw:5432/openwebui"
+    - name: OPENAI_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: openwebui-secrets
+          key: OPENAI_API_KEY
 
+    # Basic configuration
+    - name: WEBUI_URL
+      value: "webui.ai.itkdev.dk"
+    - name: CORS_ALLOW_ORIGIN
+      value: "*"
+    - name: USER_AGENT
+      value: "AarhusAI"
+    - name: DEFAULT_LOCALE
+      value: "da-DK"
+    - name: WEBUI_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: openwebui-secrets
+          key: WEBUI_SECRET_KEY
+
+    # Open telemetry
+    - name: ENABLE_OTEL
+      value: "false"
+    - name: OTEL_EXPORTER_OTLP_ENDPOINT
+      value: "http://alloy:4317"
+    - name: OTEL_EXPORTER_OTLP_INSECURE
+      value: "false"
+    - name: OTEL_BASIC_AUTH_USERNAME
+      value: ""
+    - name: OTEL_BASIC_AUTH_PASSWORD
+      value: ""
+
+
+#    # OIDC
+#    ENABLE_SIGNUP: false
+#    ENABLE_LOGIN_FORM: true
+#    ENABLE_OAUTH_SIGNUP: ${ENABLE_OAUTH_SIGNUP:-false}
+#    # Important: Only use for AAK SSO/OIDC as we need to be able to trust the email provided!
+#    # Docs: "This is considered insecure as not all OAuth providers verify email addresses, and may allow accounts to be hijacked."
+#    # @see https://docs.openwebui.com/features/sso/#oauth
+#    OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
+#    OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID:-''}
+#    OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET:-''}
+#    OPENID_PROVIDER_URL: ${OPENID_PROVIDER_URL:-''}
+#    OAUTH_PROVIDER_NAME: ${OAUTH_PROVIDER_NAME:-''}
+#    # Change the default claims mapping.
+#    OAUTH_EMAIL_CLAIM: ${OAUTH_EMAIL_CLAIM:-upn}
+#    OAUTH_ROLES_CLAIM: ${OAUTH_ROLES_CLAIM:-role}
+#    ENABLE_OAUTH_ROLE_MANAGEMENT: ${ENABLE_OAUTH_ROLE_MANAGEMENT:-true}
+#    OAUTH_ALLOWED_ROLES: ${OAUTH_ALLOWED_ROLES:-admin,user}
+#    OAUTH_ADMIN_ROLES: ${OAUTH_ADMIN_ROLES:-admin}
+
+
+#    # RAG
+#    RAG_EMBEDDING_MODEL: ${RAG_EMBEDDING_MODEL:-intfloat/multilingual-e5-large}
+
+    # Disable direct connections (do not allow users to connect to new servers)
+    - name: ENABLE_DIRECT_CONNECTIONS
+      value: "false"
+    # User profile notification webhooks
+    - name: ENABLE_USER_WEBHOOKS
+      value: "false"
+    # Disable api key generation (in user profile)
+    - name: ENABLE_API_KEY
+      value: "false"
+    # Sharing
+    - name: ENABLE_COMMUNITY_SHARING
+      value: "false"
+
+    # MinIO configuration
+#    STORAGE_PROVIDER: ${STORAGE_PROVIDER:-s3}
+#    S3_ENDPOINT_URL: "http://minio:9000"
+#    S3_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-minioadmin}
+#    S3_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
+#    S3_BUCKET_NAME: "openwebui"
+#    S3_USE_SSL: "false"
 
   # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
   commonEnvVars: []
