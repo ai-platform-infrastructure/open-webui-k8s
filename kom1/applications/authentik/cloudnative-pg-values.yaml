@@ -183,7 +183,7 @@ cloudnative-pg:
 
   cluster:
     # -- Number of instances
-    instances: 1
+    instances: 2
 
     # -- Name of the container image, supporting both tags (<image>:<tag>) and digests for deterministic and repeatable deployments:
     # <image>:<tag>@sha256:<digestValue>
