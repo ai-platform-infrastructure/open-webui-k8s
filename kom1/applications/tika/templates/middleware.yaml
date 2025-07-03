@@ -2,7 +2,7 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: tika-basic-auth
-  namespace: traefik
+  namespace: tika
 spec:
   basicAuth:
     secret: tika-basic-auth-credentials
