@@ -283,11 +283,15 @@ open-webui:
       value: "AarhusAI"
     - name: DEFAULT_LOCALE
       value: "da-DK"
+    - name: ENABLE_EVALUATION_ARENA_MODELS
+      value: "false"
     - name: WEBUI_SECRET_KEY
       valueFrom:
         secretKeyRef:
           name: openwebui-secrets
           key: WEBUI_SECRET_KEY
+    - name: ENABLE_CODE_INTERPRETER
+      value: "false"
 
     # Open telemetry
     - name: ENABLE_OTEL
@@ -320,21 +324,23 @@ open-webui:
 
     # Vector store
     - name: VECTOR_DB
-      value: "chroma"
-    - name: CHROMA_HTTP_HOST
-      value: ""
-    - name: CHROMA_HTTP_PORT
-      value: ""
-    - name: CHROMA_HTTP_HEADERS
-      value: ""
-    - name: CHROMA_CLIENT_AUTH_CREDENTIALS
-      value: ""
+      value: "qdrant"
+#    - name: QDRANT_API_KEY
+#      value: ""
+    - name: QDRANT_URI
+      value: "http://webui-qdrant:6334"
+    - name: QDRANT_PREFER_GRPC
+      value: "true"
+    - name: QDRANT_GRPC_PORT
+      value: "6334"
+    - name: ENABLE_QDRANT_MULTITENANCY_MODE
+      value: "true"
 
     # Content extraction
     - name: CONTENT_EXTRACTION_ENGINE
       value: "tika"
     - name: TIKA_SERVER_URL
-      value: ""
+      value: "http://tika.tika.svc.cluster.local:9998"
 
     # RAG
     - name: RAG_EMBEDDING_ENGINE
