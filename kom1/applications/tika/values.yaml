@@ -25,7 +25,7 @@ tika:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       # Add basic auth annotations here ("namespace-[middleware-name])
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-tika-basic-auth@kubernetescrd
+      traefik.ingress.kubernetes.io/router.middlewares: tika-tika-basic-auth@kubernetescrd
 
     hosts:
       - host: tika.ai.itkdev.dk
