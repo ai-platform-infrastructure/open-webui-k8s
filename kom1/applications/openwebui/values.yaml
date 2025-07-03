@@ -271,6 +271,10 @@ open-webui:
           key: OPENAI_API_KEY
 
     # Basic configuration
+    - name: ENABLE_SIGNUP
+      value: "false"
+    - name: ENABLE_LOGIN_FORM
+      value: "true"
     - name: WEBUI_URL
       value: "webui.ai.itkdev.dk"
     - name: CORS_ALLOW_ORIGIN
@@ -297,13 +301,10 @@ open-webui:
     - name: OTEL_BASIC_AUTH_PASSWORD
       value: ""
 
-
-#    # OIDC
-#    ENABLE_SIGNUP: false
-#    ENABLE_LOGIN_FORM: true
+    # OIDC
 #    ENABLE_OAUTH_SIGNUP: ${ENABLE_OAUTH_SIGNUP:-false}
 #    # Important: Only use for AAK SSO/OIDC as we need to be able to trust the email provided!
-#    # Docs: "This is considered insecure as not all OAuth providers verify email addresses, and may allow accounts to be hijacked."
+#    # Docs: "This is considered insecure as not all OAuth providers verify email addresses and may allow accounts to be hijacked."
 #    # @see https://docs.openwebui.com/features/sso/#oauth
 #    OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
 #    OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID:-''}
@@ -317,9 +318,44 @@ open-webui:
 #    OAUTH_ALLOWED_ROLES: ${OAUTH_ALLOWED_ROLES:-admin,user}
 #    OAUTH_ADMIN_ROLES: ${OAUTH_ADMIN_ROLES:-admin}
 
+    # Vector store
+    - name: VECTOR_DB
+      value: "chroma"
+    - name: CHROMA_HTTP_HOST
+      value: ""
+    - name: CHROMA_HTTP_PORT
+      value: ""
+    - name: CHROMA_HTTP_HEADERS
+      value: ""
+    - name: CHROMA_CLIENT_AUTH_CREDENTIALS
+      value: ""
 
-#    # RAG
-#    RAG_EMBEDDING_MODEL: ${RAG_EMBEDDING_MODEL:-intfloat/multilingual-e5-large}
+    # Content extraction
+    - name: CONTENT_EXTRACTION_ENGINE
+      value: "tika"
+    - name: TIKA_SERVER_URL
+      value: ""
+
+    # RAG
+    - name: RAG_EMBEDDING_ENGINE
+      value: "openai"
+    - name: CHUNK_SIZE
+      value: "500"
+    - name: RAG_EMBEDDING_MODEL
+      value: "intfloat/multilingual-e5-large"
+    - name: RAG_OPENAI_API_BASE_URL
+      value: "https://embed.itkdev.dk/v1"
+    - name: RAG_OPENAI_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: openwebui-secrets
+          key: RAG_OPENAI_API_KEY
+
+    # Web-search
+    - name: ENABLE_WEB_SEARCH
+      value: "true"
+    - name: WEB_SEARCH_ENGINE
+      value: "duckduckgo"
 
     # Disable direct connections (do not allow users to connect to new servers)
     - name: ENABLE_DIRECT_CONNECTIONS
@@ -334,8 +370,8 @@ open-webui:
     - name: ENABLE_COMMUNITY_SHARING
       value: "false"
 
-    # MinIO configuration
-#    STORAGE_PROVIDER: ${STORAGE_PROVIDER:-s3}
+    # S3 configuration
+#    STORAGE_PROVIDER: s3
 #    S3_ENDPOINT_URL: "http://minio:9000"
 #    S3_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-minioadmin}
 #    S3_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
