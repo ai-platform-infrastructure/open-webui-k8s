@@ -163,11 +163,15 @@ open-webui:
 
   ingress:
     enabled: false
-    class: ""
-    annotations: {}
-    host: "webui.ai.itkdev.dk"
+    class: "traefik"
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+    host: webui.ai.itkdev.dk
     additionalHosts: []
-    tls: false
+    tls:
+      - hosts:
+          - webui.ai.itkdev.dk
+        secretName: webui.ai.itkdev.dk-tls
     existingSecret: ""
     extraLabels: {}
     # extraLabels:
