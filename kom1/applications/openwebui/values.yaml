@@ -268,12 +268,12 @@ open-webui:
     - name: POSTGRES_USER
       valueFrom:
         secretKeyRef:
-          name: cloudnative-pg-cluster-litellm
+          name: cloudnative-pg-cluster-openwebui
           key: username
     - name: POSTGRES_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: cloudnative-pg-cluster-litellm
+          name: cloudnative-pg-cluster-openwebui
           key: password
     - name: DATABASE_URL
       value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@cloudnative-pg-cluster-rw:5432/openwebui"

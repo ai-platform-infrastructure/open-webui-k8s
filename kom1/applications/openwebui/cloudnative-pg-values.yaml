@@ -277,7 +277,7 @@ cloudnative-pg:
         # inRoles:
         #   - pg_database_owner
         passwordSecret:
-          name: cloudnative-pg-cluster-litellm
+          name: cloudnative-pg-cluster-openwebui
 
     monitoring:
       # -- Whether to enable monitoring
