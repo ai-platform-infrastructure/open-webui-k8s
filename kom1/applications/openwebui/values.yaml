@@ -285,7 +285,7 @@ open-webui:
 
     # Basic configuration
     - name: ENABLE_SIGNUP
-      value: "true"
+      value: "false"
     - name: ENABLE_LOGIN_FORM
       value: "true"
     - name: WEBUI_URL
@@ -447,7 +447,7 @@ open-webui:
   sso:
     # -- **Enable SSO authentication globally** must enable to use SSO authentication
     # @section -- SSO Configuration
-    enabled: false
+    enabled: true
     # -- Enable account creation when logging in with OAuth (distinct from regular signup)
     # @section -- SSO Configuration
     enableSignup: true
