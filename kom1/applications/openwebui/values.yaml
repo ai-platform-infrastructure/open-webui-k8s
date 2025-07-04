@@ -2,7 +2,7 @@ open-webui:
   nameOverride: ""
   namespaceOverride: ""
 
-  replicaCount: 2
+  replicaCount: 1
 
   ollama:
     enabled: false
