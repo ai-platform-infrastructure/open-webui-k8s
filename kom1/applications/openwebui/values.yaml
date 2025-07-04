@@ -162,7 +162,7 @@ open-webui:
     enabled: false
 
   ingress:
-    enabled: false
+    enabled: true
     class: "traefik"
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
