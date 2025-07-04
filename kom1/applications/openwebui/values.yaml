@@ -79,7 +79,7 @@ open-webui:
   # -- Deploys a Redis cluster with subchart 'redis' from bitnami
   redis-cluster:
     # -- Enable Redis installation
-    enabled: true
+    enabled: false
     # -- Redis cluster name (recommended to be 'open-webui-redis')
     # - In this case, redis url will be 'redis://open-webui-redis-master:6379/0' or 'redis://[:<password>@]open-webui-redis-master:6379/0'
     fullnameOverride: open-webui-redis
