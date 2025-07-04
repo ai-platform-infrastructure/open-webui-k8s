@@ -16,7 +16,7 @@ open-webui:
 
   websocket:
     # -- Enables websocket support in Open WebUI with env `ENABLE_WEBSOCKET_SUPPORT`
-    enabled: true
+    enabled: false
     # -- Specifies the websocket manager to use with env `WEBSOCKET_MANAGER`: redis (default)
     manager: redis
     # -- Specifies the URL of the Redis instance for websocket communication. Template with `redis://[:<password>@]<hostname>:<port>/<db>`
