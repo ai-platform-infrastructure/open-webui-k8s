@@ -68,3 +68,12 @@ apps:
     automated: true
     valueFiles:
       - values.yaml
+
+  - name: openwebui
+    project: openwebui
+    namespace: openwebui
+    automated: true
+    valueFiles:
+      - cloudnative-pg-values.yaml
+      - qdrant-values.yaml
+      - values.yaml
