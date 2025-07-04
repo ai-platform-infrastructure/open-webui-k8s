@@ -131,24 +131,22 @@ open-webui:
 
   # -- Probe for readiness of the Open WebUI container
   # ref: <https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes>
-  readinessProbe: {}
-  # readinessProbe:
-  #   httpGet:
-  #     path: /health/db
-  #     port: http
-  #   failureThreshold: 1
-  #   periodSeconds: 10
+  readinessProbe:
+     httpGet:
+       path: /health/db
+       port: http
+     failureThreshold: 1
+     periodSeconds: 10
 
   # -- Probe for startup of the Open WebUI container
   # ref: <https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes>
-  startupProbe: {}
-  # startupProbe:
-  #   httpGet:
-  #     path: /health
-  #     port: http
-  #   initialDelaySeconds: 30
-  #   periodSeconds: 5
-  #   failureThreshold: 20
+  startupProbe:
+    httpGet:
+      path: /health
+      port: http
+    initialDelaySeconds: 30
+    periodSeconds: 5
+    failureThreshold: 20
 
   resources: {}
 
@@ -215,6 +213,17 @@ open-webui:
       # -- Sets the key prefix for a S3 object
       # @section -- Amazon S3 Storage configuration
       keyPrefix: ""
+
+
+    # S3 configuration
+#    STORAGE_PROVIDER: s3
+#    S3_ENDPOINT_URL: "http://minio:9000"
+#    S3_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-minioadmin}
+#    S3_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
+#    S3_BUCKET_NAME: "openwebui"
+#    S3_USE_SSL: "false"
+
+
 
   # -- Node labels for pod assignment.
   nodeSelector: {}
@@ -306,27 +315,12 @@ open-webui:
       value: ""
 
     # OIDC
-#    ENABLE_OAUTH_SIGNUP: ${ENABLE_OAUTH_SIGNUP:-false}
-#    # Important: Only use for AAK SSO/OIDC as we need to be able to trust the email provided!
-#    # Docs: "This is considered insecure as not all OAuth providers verify email addresses and may allow accounts to be hijacked."
-#    # @see https://docs.openwebui.com/features/sso/#oauth
-#    OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
-#    OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID:-''}
-#    OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET:-''}
-#    OPENID_PROVIDER_URL: ${OPENID_PROVIDER_URL:-''}
-#    OAUTH_PROVIDER_NAME: ${OAUTH_PROVIDER_NAME:-''}
-#    # Change the default claims mapping.
-#    OAUTH_EMAIL_CLAIM: ${OAUTH_EMAIL_CLAIM:-upn}
-#    OAUTH_ROLES_CLAIM: ${OAUTH_ROLES_CLAIM:-role}
-#    ENABLE_OAUTH_ROLE_MANAGEMENT: ${ENABLE_OAUTH_ROLE_MANAGEMENT:-true}
-#    OAUTH_ALLOWED_ROLES: ${OAUTH_ALLOWED_ROLES:-admin,user}
-#    OAUTH_ADMIN_ROLES: ${OAUTH_ADMIN_ROLES:-admin}
+    - name: OAUTH_EMAIL_CLAIM
+      value: "upn"
 
     # Vector store
     - name: VECTOR_DB
       value: "qdrant"
-#    - name: QDRANT_API_KEY
-#      value: ""
     - name: QDRANT_URI
       value: "http://webui-qdrant:6334"
     - name: QDRANT_PREFER_GRPC
@@ -375,14 +369,6 @@ open-webui:
     # Sharing
     - name: ENABLE_COMMUNITY_SHARING
       value: "false"
-
-    # S3 configuration
-#    STORAGE_PROVIDER: s3
-#    S3_ENDPOINT_URL: "http://minio:9000"
-#    S3_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-minioadmin}
-#    S3_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
-#    S3_BUCKET_NAME: "openwebui"
-#    S3_USE_SSL: "false"
 
   # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
   commonEnvVars: []
@@ -457,56 +443,56 @@ open-webui:
   sso:
     # -- **Enable SSO authentication globally** must enable to use SSO authentication
     # @section -- SSO Configuration
-    enabled: false
+    enabled: true
     # -- Enable account creation when logging in with OAuth (distinct from regular signup)
     # @section -- SSO Configuration
-    enableSignup: false
+    enableSignup: true
     # -- Allow logging into accounts that match email from OAuth provider (considered insecure)
     # @section -- SSO Configuration
-    mergeAccountsByEmail: false
+    mergeAccountsByEmail: true
     # -- Enable OAuth role management through access token roles claim
     # @section -- SSO Configuration
-    enableRoleManagement: false
+    enableRoleManagement: true
     # -- Enable OAuth group management through access token groups claim
     # @section -- SSO Configuration
-    enableGroupManagement: false
+    enableGroupManagement: true
 
     oidc:
       # -- Enable OIDC authentication
       # @section -- OIDC configuration
-      enabled: false
+      enabled: true
       # -- OIDC client ID
       # @section -- OIDC configuration
-      clientId: ""
+      clientId: "bd69231f-e488-4d97-b714-7ec111f31050"
       # -- OIDC client secret (ignored if clientExistingSecret is set)
       # @section -- OIDC configuration
       clientSecret: ""
       # -- OICD client secret from existing secret
       # @section -- OIDC configuration
-      clientExistingSecret: ""
+      clientExistingSecret: "openwebui-secrets"
       # -- OIDC client secret key from existing secret
       # @section -- OIDC configuration
-      clientExistingSecretKey: ""
+      clientExistingSecretKey: "OIDC_CLIENT_SECRET"
       # -- OIDC provider well known URL
       # @section -- OIDC configuration
-      providerUrl: ""
+      providerUrl: "https://aarhuskommuneb2c.b2clogin.com/aarhuskommuneb2c.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1A_AAK_SIGNIN_OIDC_AIPLATFORM"
       # -- Name of the provider to show on the UI
       # @section -- OIDC configuration
-      providerName: "SSO"
+      providerName: "Aarhus Kommune"
       # -- Scopes to request (space-separated).
       # @section -- OIDC configuration
-      scopes: "openid email profile"
+      scopes: "openid email"
 
     roleManagement:
       # -- The claim that contains the roles (can be nested, e.g., user.roles)
       # @section -- Role management configuration
-      rolesClaim: "roles"
+      rolesClaim: "role"
       # -- Comma-separated list of roles allowed to log in (receive open webui role user)
       # @section -- Role management configuration
-      allowedRoles: ""
+      allowedRoles: "admin,end-user,local-admin,builder"
       # -- Comma-separated list of roles allowed to log in as admin (receive open webui role admin)
       # @section -- Role management configuration
-      adminRoles: ""
+      adminRoles: "admin"
 
     groupManagement:
       # -- The claim that contains the groups (can be nested, e.g., user.memberOf)
