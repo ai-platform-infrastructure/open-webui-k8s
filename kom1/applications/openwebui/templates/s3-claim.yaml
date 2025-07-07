@@ -4,5 +4,5 @@ metadata:
   name: s3-openwebui
   namespace: openwebui
 spec:
-  generateBucketName: openwebui
+  bucketName: "openwebui"
   storageClassName: s3-bucket-retain
