@@ -317,7 +317,7 @@ open-webui:
     - name: VECTOR_DB
       value: "qdrant"
     - name: QDRANT_URI
-      value: "http://webui-qdrant:6334"
+      value: "http://openwebui-qdrant:6334"
     - name: QDRANT_PREFER_GRPC
       value: "true"
     - name: QDRANT_GRPC_PORT
