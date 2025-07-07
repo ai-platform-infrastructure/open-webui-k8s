@@ -2,6 +2,7 @@ apiVersion: objectbucket.io/v1alpha1
 kind: ObjectBucketClaim
 metadata:
   name: s3-openwebui
+  namespace: openwebui
 spec:
   generateBucketName: openwebui
   storageClassName: s3-bucket-retain
