@@ -209,7 +209,7 @@ open-webui:
       secretKeyExistingSecretKey: "AWS_SECRET_ACCESS_KEY"
       # -- Sets the endpoint url for S3 storage
       # @section -- Amazon S3 Storage configuration
-      endpointUrl: "rook-ceph-rgw-ceph-objectstore.rook-ceph.svc"
+      endpointUrl: "http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc"
       # -- Sets the region name for S3 storage
       # @section -- Amazon S3 Storage configuration
       region: ""
