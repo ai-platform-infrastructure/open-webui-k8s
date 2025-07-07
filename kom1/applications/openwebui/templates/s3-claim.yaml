@@ -1,7 +1,7 @@
 apiVersion: objectbucket.io/v1alpha1
 kind: ObjectBucketClaim
 metadata:
-  name: ceph-bucket
+  name: s3-openwebui
 spec:
   generateBucketName: openwebui
-  storageClassName: s3-ceph-bucket
+  storageClassName: s3-bucket-retain

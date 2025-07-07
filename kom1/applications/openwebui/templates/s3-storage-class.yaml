@@ -1,7 +1,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: ceph-bucket
+  name: s3-bucket-retain
 provisioner: rook-ceph.ceph.rook.io/bucket
 parameters:
   objectStoreName: ceph-objectstore
