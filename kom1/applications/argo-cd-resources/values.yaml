@@ -72,7 +72,7 @@ apps:
   - name: openwebui
     project: openwebui
     namespace: openwebui
-    automated: false
+    automated: true
     valueFiles:
       - cloudnative-pg-values.yaml
       - qdrant-values.yaml
