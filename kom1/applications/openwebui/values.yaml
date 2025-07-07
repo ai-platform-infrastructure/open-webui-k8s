@@ -280,7 +280,7 @@ open-webui:
     - name: ENABLE_LOGIN_FORM
       value: "true"
     - name: WEBUI_URL
-      value: "webui.ai.itkdev.dk"
+      value: "https://webui.ai.itkdev.dk"
     - name: CORS_ALLOW_ORIGIN
       value: "*"
     - name: USER_AGENT
