@@ -4,6 +4,12 @@ open-webui:
 
   replicaCount: 3
 
+  # -- Open WebUI image tags can be found here: https://github.com/open-webui/open-webui
+  image:
+    repository: itkdev/openwebui
+    tag: "v0.6.15-8"
+    pullPolicy: "IfNotPresent"
+
   ollama:
     enabled: false
 
@@ -103,12 +109,6 @@ open-webui:
   podLabels: {}
   # -- Strategy for updating the workload manager: deployment or statefulset
   strategy: {}
-
-  # -- Open WebUI image tags can be found here: https://github.com/open-webui/open-webui
-  image:
-    repository: itkdev/openwebui
-    tag: "latest"
-    pullPolicy: "IfNotPresent"
 
   # -- Open WebUI container command (overrides default entrypoint)
   command: []
@@ -376,6 +376,9 @@ open-webui:
       value: "false"
     # Sharing
     - name: ENABLE_COMMUNITY_SHARING
+      value: "false"
+    # Disable screen capture
+    - name: USER_PERMISSIONS_CHAT_IMAGE_CAPTURE
       value: "false"
 
   # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
