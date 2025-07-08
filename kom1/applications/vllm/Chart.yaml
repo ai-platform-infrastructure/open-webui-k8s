@@ -1,0 +1,7 @@
+apiVersion: v2
+name: vllm
+version: 0.0.1
+dependencies:
+    - name: vllm-stack
+      version: 0.1.5
+      repository: https://vllm-project.github.io/production-stack
