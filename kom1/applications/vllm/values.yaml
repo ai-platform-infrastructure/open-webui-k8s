@@ -17,3 +17,17 @@ vllm:
     - key: "node-role.kubernetes.io/gpu"
       operator: "Exists"
 
+  # Add security context configuration
+  podSecurityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
