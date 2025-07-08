@@ -9,30 +9,17 @@ vllm:
 
         replicaCount: 1
 
-        requestCPU: 6
+        requestCPU: 1
         requestMemory: "16Gi"
         requestGPU: 1
 
-  tolerations:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: nvidia.com/vgpu.present
+                operator: "In"
+                values:
+                  - "true"
+
+    tolerations:
     - key: "node-role.kubernetes.io/gpu"
       operator: "Exists"
-
-  # Global pod security context
-  securityContext:
-    runAsNonRoot: true
-    seccompProfile:
-      type: RuntimeDefault
-
-  # Container-specific security contexts
-  containers:
-    router-container:
-      securityContext:
-        allowPrivilegeEscalation: false
-        capabilities:
-          drop:
-            - ALL
-        runAsNonRoot: true
-        seccompProfile:
-          type: RuntimeDefault
-
-
