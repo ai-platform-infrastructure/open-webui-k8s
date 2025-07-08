@@ -312,6 +312,10 @@ open-webui:
     # OIDC
     - name: OAUTH_EMAIL_CLAIM
       value: "upn"
+    - name: ENABLE_OAUTH_GROUP_MANAGEMENT
+      value: "true"
+    - name: ENABLE_OAUTH_GROUP_CREATION
+      value: "true"
 
     # Vector store
     - name: VECTOR_DB
