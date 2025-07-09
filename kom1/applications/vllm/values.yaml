@@ -33,6 +33,10 @@ vllm:
                 values:
                   - "true"
 
+    vllmApiKey:
+      secretName: "vllm-secret"
+      secretKey: "KEY"
+
     tolerations:
     - key: "node-role.kubernetes.io/gpu"
       operator: "Exists"
