@@ -77,3 +77,10 @@ apps:
       - cloudnative-pg-values.yaml
       - qdrant-values.yaml
       - values.yaml
+
+  - name: vllm
+    project: vllm
+    namespace: vllm
+    automated: true
+    valueFiles:
+      - values.yaml
