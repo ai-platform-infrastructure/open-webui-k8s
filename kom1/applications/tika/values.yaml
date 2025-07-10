@@ -21,7 +21,7 @@ tika:
   imagePullSecrets: []
 
   ingress:
-    enabled: true
+    enabled: false
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       # Add basic auth annotations here ("namespace-[middleware-name])
