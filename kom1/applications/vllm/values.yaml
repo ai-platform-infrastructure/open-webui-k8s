@@ -8,7 +8,8 @@ vllm:
     modelSpec:
       - name: "gemma"
         repository: "lmcache/vllm-openai"
-        tag: "v0.3.0"
+        tag: "v0.3.1"
+
         modelURL: "google/gemma-3-27b-it"
 
         replicaCount: 1
@@ -44,3 +45,8 @@ vllm:
     tolerations:
     - key: "node-role.kubernetes.io/gpu"
       operator: "Exists"
+
+  routerSpec:
+    repository: "lmcache/lmstack-router"
+    tag: "latest"
+    imagePullPolicy: "Always"
