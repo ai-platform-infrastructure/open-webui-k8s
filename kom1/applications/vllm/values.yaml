@@ -18,14 +18,23 @@ vllm:
         requestGPU: 1
 
         pvcStorage: "200Gi"
+
         vllmConfig:
           enableChunkedPrefill: true
           enablePrefixCaching: false
-          maxModelLen: 8192
+          maxModelLen: 16384
+          extraArgs:
+            - "--seed 3407"
+            - "--ctx-size 32768"
+            - "--repeat-penalty 1.0"
+            - "--temp 1.0"
+            - "--min-p 0.00"
+            - "--top-k 64"
+            - "--top-p 0.95"
 
-#        lmcacheConfig:
-#          enabled: true
-#          cpuOffloadingBufferSize: "20"
+        lmcacheConfig:
+          enabled: true
+          cpuOffloadingBufferSize: "20"
 
         hf_token:
           secretName: "hf-secret"
