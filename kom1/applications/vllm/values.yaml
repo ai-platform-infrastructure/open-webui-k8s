@@ -25,7 +25,7 @@ vllm:
           maxModelLen: 16384
 
         lmcacheConfig:
-          enabled: true
+          enabled: false
           cpuOffloadingBufferSize: "20"
 
         hf_token:
