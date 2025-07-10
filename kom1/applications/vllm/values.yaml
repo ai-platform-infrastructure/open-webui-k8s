@@ -4,7 +4,7 @@ vllm:
     modelSpec:
       - name: "gemma"
         repository: "lmcache/vllm-openai"
-        tag: "latest"
+        tag: "v0.3.0"
         modelURL: "google/gemma-3-27b-it"
 
         replicaCount: 1
