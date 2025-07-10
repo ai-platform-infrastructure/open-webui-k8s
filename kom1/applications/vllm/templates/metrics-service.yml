@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: vllm-router-metrics
+  namespace: vllm
+  labels:
+    serviceMonitorSelector: prometheus
+spec:
+  selector:
+    matchLabels:
+      environment: router
+      release: router
+  namespaceSelector:
+    matchNames:
+      - vllm
+  endpoints:
+    - port: router-sport
+      interval: 15s
+      path: /metrics
