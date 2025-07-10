@@ -1,5 +1,9 @@
 vllm:
   servingEngineSpec:
+    strategy:
+      # We only have one GPU node, so we need to kill exiting deployment first.
+      type: Recreate
+
     runtimeClassName: ""
     modelSpec:
       - name: "gemma"
