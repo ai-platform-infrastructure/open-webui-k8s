@@ -3,6 +3,8 @@ kind: ServiceMonitor
 metadata:
   name: vllm-router-metrics
   namespace: vllm
+  labels:
+    serviceMonitorSelector: prometheus
 spec:
   selector:
     matchLabels:
