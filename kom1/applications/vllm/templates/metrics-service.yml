@@ -4,7 +4,7 @@ metadata:
   name: vllm-router-metrics
   namespace: vllm
   labels:
-    serviceMonitorSelector: prometheus
+    prometheus: prometheus
 spec:
   selector:
     matchLabels:
