@@ -1,38 +1,39 @@
-# Replica configuration
-replicaCount: 2
+docling:
+  # Replica configuration
+  replicaCount: 2
 
-# Ingress configuration - ENABLED BY DEFAULT for external access
-ingress:
-  enabled: false
+  # Ingress configuration - ENABLED BY DEFAULT for external access
+  ingress:
+    enabled: false
 
-# Docling configuration
-config:
-  # Enable the web UI
-  enableUI: true
-  # Additional environment variables
-  extraEnv:
-    DOCLING_SERVE_HOST: "0.0.0.0"
-    DOCLING_SERVE_PORT: "5001"
+  # Docling configuration
+  config:
+    # Enable the web UI
+    enableUI: true
+    # Additional environment variables
+    extraEnv:
+      DOCLING_SERVE_HOST: "0.0.0.0"
+      DOCLING_SERVE_PORT: "5001"
 
-# Resource limits
-resources:
-  requests:
-    memory: "512Mi"
-    cpu: "250m"
-  limits:
-    memory: "2Gi"
-    cpu: "1000m"
+  # Resource limits
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "2Gi"
+      cpu: "1000m"
 
-# Storage configuration (if needed for document processing cache)
-storage:
-  enabled: false
-  size: 5Gi
-  storageClass: ""
-  mountPath: /app/cache
+  # Storage configuration (if needed for document processing cache)
+  storage:
+    enabled: false
+    size: 5Gi
+    storageClass: ""
+    mountPath: /app/cache
 
-# Namespace configuration
-namespace:
-  name: "docling"
-  # Whether to create the namespace (only works when name is specified)
-  # Set to false if namespace already exists or using default/release namespace
-  create: true
+  # Namespace configuration
+  namespace:
+    name: "docling"
+    # Whether to create the namespace (only works when name is specified)
+    # Set to false if namespace already exists or using default/release namespace
+    create: true
