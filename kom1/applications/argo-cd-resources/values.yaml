@@ -84,3 +84,10 @@ apps:
     automated: true
     valueFiles:
       - values.yaml
+      -
+  - name: docling
+    project: docling
+    namespace: docling
+    automated: true
+    valueFiles:
+      - values.yaml
