@@ -3,5 +3,5 @@ name: docling
 version: 0.16.0
 dependencies:
     - name: docling
-      version: 0.0.1
+      version: 0.0.2
       repository: https://itk-dev.github.io/helm-charts
