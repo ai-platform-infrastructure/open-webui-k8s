@@ -7,8 +7,10 @@ vllm:
     runtimeClassName: ""
     modelSpec:
       - name: "gemma"
-        repository: "lmcache/vllm-openai"
-        tag: "nightly-2025-07-14"
+        repository: "vllm/vllm-openai"
+        tag: "v0.9.2"
+
+        #repository: "lmcache/vllm-openai"
         #tag: "2025-05-27-v1"
 
         modelURL: "google/gemma-3-27b-it"
