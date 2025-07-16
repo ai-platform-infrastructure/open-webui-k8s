@@ -368,7 +368,18 @@ open-webui:
       valueFrom:
         secretKeyRef:
           name: openwebui-secrets
-          key: STT_WHISPER_API_KEY
+          key: STT_API_KEY
+
+    # TTS (piper)
+    - name: AUDIO_TTS_ENGINE
+      value: "openai"
+    - name: AUDIO_TTS_OPENAI_API_BASE_URL
+      value: "https://tts.itkdev.dk/"
+    - name: AUDIO_TTS_OPENAI_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: openwebui-secrets
+          key: TTS_API_KEY
 
     # Web-search
     - name: ENABLE_WEB_SEARCH
