@@ -359,6 +359,17 @@ open-webui:
           name: openwebui-secrets
           key: RAG_OPENAI_API_KEY
 
+    # STT (whisper)
+    - name: AUDIO_STT_ENGINE
+      value: "openai"
+    - name: AUDIO_STT_OPENAI_API_BASE_URL
+      value: "https://whisper.itkdev.dk/"
+    - name: AUDIO_STT_OPENAI_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: openwebui-secrets
+          key: STT_WHISPER_API_KEY
+
     # Web-search
     - name: ENABLE_WEB_SEARCH
       value: "true"
