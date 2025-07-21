@@ -1,6 +1,9 @@
 colibo:
   schedule: "0 * * * *"  # Run every hour by default
 
+  image:
+    tag: 0.0.3
+
   resources:
     limits:
       cpu: 500m
