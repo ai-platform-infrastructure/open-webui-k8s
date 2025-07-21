@@ -91,3 +91,10 @@ apps:
     automated: true
     valueFiles:
       - values.yaml
+
+  - name: mbu-colibo
+    project: mbu-colibo
+    namespace: colibo
+    automated: true
+    valueFiles:
+      - values.yaml

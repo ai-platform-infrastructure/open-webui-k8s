@@ -1,0 +1,26 @@
+schedule: "0 * * * *"  # Run every hour by default
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+app:
+  databaseUrl: "sqlite:///database/sync.db"
+  colibo:
+    url: 'https://intranet.aarhuskommune.dk'
+    rootDocIid: '77318'
+    scope: 'api Documents.ReadWrite.All'
+    client:
+      existingSecret: 'mbu-colibo-secrets'
+      idKey: 'COLIBO_CLIENT_ID'
+      secretKey: 'COLIBO_CLIENT_SECRET'
+  webui:
+    url: 'https://webui.ai.itkdev.dk'
+    client:
+      existingSecret: 'mbu-colibo-secrets'
+      tokenKey: 'WEBUI_TOKEN'
+      knowledgeKey: 'WEBUI_KNOWLEDGE_ID'
