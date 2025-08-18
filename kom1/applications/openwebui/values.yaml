@@ -238,8 +238,11 @@ open-webui:
   # -- OpenAI base API URLs to use. Overwrites the value in openaiBaseApiUrl if set
   openaiBaseApiUrls: []
 
-  # -- Configure database URL, needed to work with Postgres (example: `postgresql://<user>:<password>@<service>:<port>/<database>`), leave empty to use the default sqlite database
-  databaseUrl: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@cloudnative-pg-cluster-rw:5432/openwebui"
+  # -- Configure database URL.
+  #
+  # LEFT EMPTY TO USE DATABASE_URL ENV VAR AFTER POSTGRES USER/PASSWORD IS SET.
+  #
+  #databaseUrl: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@cloudnative-pg-cluster-rw:5432/openwebui"
 
   # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/
   extraEnvVars:
