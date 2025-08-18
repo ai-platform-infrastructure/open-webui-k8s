@@ -85,22 +85,6 @@ open-webui:
         # runAsUser: 999
         # runAsGroup: 1000
 
-  # -- Deploys a Redis cluster with subchart 'redis' from bitnami
-  redis-cluster:
-    # -- Enable Redis installation
-    enabled: true
-    # -- Redis cluster name (recommended to be 'open-webui-redis')
-    # - In this case, redis url will be 'redis://open-webui-redis-master:6379/0' or 'redis://[:<password>@]open-webui-redis-master:6379/0'
-    fullnameOverride: open-webui-redis
-    # -- Redis Authentication
-    auth:
-      # -- Enable Redis authentication (disabled by default). For your security, we strongly suggest that you switch to 'auth.enabled=true'
-      enabled: false
-    # -- Replica configuration for the Redis cluster
-    replica:
-      # -- Number of Redis replica instances
-      replicaCount: 3
-
   # -- Value of cluster domain
   clusterDomain: cluster.local
 
@@ -254,6 +238,9 @@ open-webui:
   # -- OpenAI base API URLs to use. Overwrites the value in openaiBaseApiUrl if set
   openaiBaseApiUrls: []
 
+  # -- Configure database URL, needed to work with Postgres (example: `postgresql://<user>:<password>@<service>:<port>/<database>`), leave empty to use the default sqlite database
+  databaseUrl: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@cloudnative-pg-cluster-rw:5432/openwebui"
+
   # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/
   extraEnvVars:
     - name: POSTGRES_USER
@@ -266,8 +253,6 @@ open-webui:
         secretKeyRef:
           name: cloudnative-pg-cluster-openwebui
           key: password
-    - name: DATABASE_URL
-      value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@cloudnative-pg-cluster-rw:5432/openwebui"
     - name: OPENAI_API_KEY
       valueFrom:
         secretKeyRef:
@@ -557,7 +542,7 @@ open-webui:
   logging:
     # -- Set the global log level ["notset", "debug", "info" (default), "warning", "error", "critical"]
     # @section -- Logging configuration
-    level: "debug"
+    level: "info"
 
     # Optional granularity: override log levels per subsystem/component
     # if not set, it will use the global level (see. https://docs.openwebui.com/getting-started/advanced-topics/logging#%EF%B8%8F-appbackend-specific-logging-levels)

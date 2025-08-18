@@ -3,7 +3,7 @@ name: openwebui
 version: 0.0.1
 dependencies:
     - name: open-webui
-      version: 6.24.0
+      version: 7.3.0
       repository: https://helm.openwebui.com/
     - name: cluster
       alias: cloudnative-pg
