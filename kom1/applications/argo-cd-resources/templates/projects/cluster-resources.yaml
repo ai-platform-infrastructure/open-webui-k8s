@@ -1,19 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: openwebui
-  namespace: argo-cd
+  name: cluster-resources
 spec:
   destinations:
   - name: in-cluster
-    namespace: openwebui
+    namespace: kube-system
     server: https://kubernetes.default.svc
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
-  namespaceResourceWhitelist:
-  - group: '*'
-    kind: '*'
+  - group: storage.k8s.io
+    kind: StorageClass
   orphanedResources:
     warn: false
   sourceRepos:
