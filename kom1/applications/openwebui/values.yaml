@@ -309,9 +309,9 @@ open-webui:
     - name: OAUTH_EMAIL_CLAIM
       value: "upn"
     - name: ENABLE_OAUTH_GROUP_MANAGEMENT
-      value: "true"
+      value: "True"
     - name: ENABLE_OAUTH_GROUP_CREATION
-      value: "true"
+      value: "True"
 
     # Vector store
     - name: VECTOR_DB
@@ -319,11 +319,11 @@ open-webui:
     - name: QDRANT_URI
       value: "http://openwebui-qdrant:6334"
     - name: QDRANT_PREFER_GRPC
-      value: "true"
+      value: "True"
     - name: QDRANT_GRPC_PORT
       value: "6334"
     - name: ENABLE_QDRANT_MULTITENANCY_MODE
-      value: "true"
+      value: "True"
 
     # Content extraction
     - name: CONTENT_EXTRACTION_ENGINE
@@ -374,7 +374,7 @@ open-webui:
 
     # Web-search
     - name: ENABLE_WEB_SEARCH
-      value: "true"
+      value: "True"
     - name: WEB_SEARCH_ENGINE
       value: "duckduckgo"
 
