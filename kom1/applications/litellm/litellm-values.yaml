@@ -105,7 +105,7 @@ litellm:
           model: openai/mistralai/Mistral-7B-Instruct-v0.3
           api_key: os.environ/CA_VLLM_MISTRAL_API_KEY
           api_base: https://vllm.srvitkcaiaavllm01.itkdev.dk/v1
-      - model_name: Gemma-3
+      - model_name: AarhusAI-default
         litellm_params:
           model: openai/google/gemma-3-27b-it
           api_key: os.environ/CA_VLLM_LOCAL_API_KEY
