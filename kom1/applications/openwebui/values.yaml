@@ -392,6 +392,9 @@ open-webui:
     # Disable screen capture
     - name: USER_PERMISSIONS_CHAT_IMAGE_CAPTURE
       value: "false"
+    # WAS
+    - name: WAS_REDIRECT_URL
+      value: "https://was.digst.dk/ai-aarhuskommune-dk"
 
   # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
   commonEnvVars: []
