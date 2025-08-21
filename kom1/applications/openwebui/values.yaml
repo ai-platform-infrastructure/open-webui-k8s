@@ -293,6 +293,10 @@ open-webui:
     - name: ENABLE_CODE_INTERPRETER
       value: "false"
 
+    # Redis cache
+    - name: REDIS_URL
+      value: "redis://open-webui-redis:6379/1"
+
     # Open telemetry
     - name: ENABLE_OTEL
       value: "false"
