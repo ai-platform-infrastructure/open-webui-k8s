@@ -12,3 +12,6 @@ dependencies:
     - name: qdrant
       version: 1.14.1
       repository: https://qdrant.github.io/qdrant-helm
+    - name: redis-cache
+      version: 0.16.7
+      repository: https://ot-container-kit.github.io/helm-charts
