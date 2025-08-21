@@ -1,8 +1,9 @@
 redis-cache:
-  redisStandalone:
-    name: "redis-cache"
+  redisReplication:
+    name: redis-cache
+    clusterSize: 1
     image: quay.io/opstree/redis
-    tag: v7.4.4
+    tag: v7.0.15
     imagePullPolicy: IfNotPresent
     imagePullSecrets: []
       # - name:  Secret with Registry credentials
@@ -24,16 +25,16 @@ redis-cache:
     # When set to true, the operator will delete the statefulset and recreate it. Default is false.
     recreateStatefulSetOnUpdateInvalid: false
 
+  # Overwite name for resources
+  # name: ""
+
   labels: {}
   #   foo: bar
   #   test: echo
 
   externalConfig:
     enabled: false
-    data: |
-      tcp-keepalive 400
-      slowlog-max-len 158
-      stream-node-max-bytes 2048
+    data: user authentik allcommands allkeys on >authentik
 
   externalService:
     enabled: false
@@ -53,7 +54,7 @@ redis-cache:
       # team: devops
 
   redisExporter:
-    enabled: true
+    enabled: false
     image: quay.io/opstree/redis-exporter
     tag: "v1.44.0"
     imagePullPolicy: IfNotPresent
@@ -151,4 +152,3 @@ redis-cache:
   env: []
     # - name: VAR_NAME
     #   value: "value1"
-
