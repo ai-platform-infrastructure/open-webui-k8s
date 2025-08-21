@@ -1,7 +1,7 @@
 redis-replication:
   redisReplication:
     name: openwebui-redis-cache
-    clusterSize: 3
+    clusterSize: 2
     image: quay.io/opstree/redis
     tag: v7.0.15
     imagePullPolicy: IfNotPresent
