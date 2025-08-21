@@ -1,4 +1,4 @@
-redis-cache:
+redis-replication:
   redisReplication:
     name: "openwebui-redis-cache"
     clusterSize: 3
