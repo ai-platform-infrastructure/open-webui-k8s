@@ -1,7 +1,7 @@
 redis-cache:
   redisReplication:
-    name: redis-cache
-    clusterSize: 1
+    name: "openwebui-redis-cache"
+    clusterSize: 3
     image: quay.io/opstree/redis
     tag: v7.0.15
     imagePullPolicy: IfNotPresent
@@ -34,7 +34,10 @@ redis-cache:
 
   externalConfig:
     enabled: false
-    data: user authentik allcommands allkeys on >authentik
+    data: |
+      tcp-keepalive 400
+      slowlog-max-len 158
+      stream-node-max-bytes 2048
 
   externalService:
     enabled: false
@@ -68,6 +71,7 @@ redis-cache:
     env: []
       # - name: VAR_NAME
       #   value: "value1"
+    securityContext: {}
 
   initContainer:
     enabled: false
@@ -152,3 +156,8 @@ redis-cache:
   env: []
     # - name: VAR_NAME
     #   value: "value1"
+
+  pdb:
+    enabled: false
+    minAvailable: 1
+    maxUnavailable: null
