@@ -10,7 +10,7 @@ vllm:
         #repository: "vllm/vllm-openai"
         #tag: "v0.9.1"
         repository: "lmcache/vllm-openai"
-        tag: "v0.3.3"
+        tag: "2025-05-27-v1"
 
         modelURL: "mistralai/Mistral-Small-3.2-24B-Instruct-2506"
 
