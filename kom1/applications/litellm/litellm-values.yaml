@@ -107,7 +107,7 @@ litellm:
           api_base: https://vllm.srvitkcaiaavllm01.itkdev.dk/v1
       - model_name: AarhusAI-default
         litellm_params:
-          model: openai/google/gemma-3-27b-it
+          model: openai/mistralai/Mistral-Small-3.2-24B-Instruct-2506
           api_key: os.environ/CA_VLLM_LOCAL_API_KEY
           api_base: http://vllm-router-service.vllm.svc.cluster.local/v1
     general_settings:
