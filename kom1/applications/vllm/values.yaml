@@ -16,7 +16,7 @@ vllm:
 
         replicaCount: 1
         requestCPU: 4
-        requestMemory: "40Gi"
+        requestMemory: "56Gi"
         requestGPU: 1
 
         pvcStorage: "200Gi"
