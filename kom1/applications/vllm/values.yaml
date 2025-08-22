@@ -25,7 +25,7 @@ vllm:
           enableChunkedPrefill: true
           enablePrefixCaching: true
           maxModelLen: 16384
-          extraArgs: ["--tokenizer-mode", "mistral"]
+          extraArgs: ["--tokenizer-mode", "mistral", "--config_format", "mistral", "--load_format", "mistral"]
 
         lmcacheConfig:
           enabled: false
