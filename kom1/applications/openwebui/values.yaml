@@ -7,7 +7,7 @@ open-webui:
   # -- Open WebUI image tags can be found here: https://github.com/open-webui/open-webui
   image:
     repository: itkdev/openwebui
-    tag: "v0.6.22-1"
+    tag: "v0.6.23-2"
     pullPolicy: "IfNotPresent"
 
   ollama:
@@ -411,9 +411,9 @@ open-webui:
     - name:  LOGO_URL
       value: "https://designguide.aarhus.dk/media/i1kjp3l1/png-lang-venstrejusteret-negativ-png-8-kb.png?format=noformat"
     - name: SYSTEM_REGISTER_URL
-      value: "http://www.example.com"
+      value: "https://systemregister.azure.aarhuskommune.dk/AccessOnDemand"
     - name: SYSTEM_REGISTER_GUIDE_URL
-      value: "http://www.example.org"
+      value: "https://intranet.aarhuskommune.dk/workgroup/16479/ai-univers-kunstig-intelligens-i-aarhus-kommune/sections/41687"
 
   # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
   commonEnvVars: []
