@@ -25,6 +25,7 @@ vllm:
           enableChunkedPrefill: true
           enablePrefixCaching: true
           maxModelLen: 16384
+          tokenizer-mode: mistral
 
         lmcacheConfig:
           enabled: false
