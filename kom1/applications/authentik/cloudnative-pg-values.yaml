@@ -394,7 +394,7 @@ cloudnative-pg:
     s3:
       region: hel1
       bucket: kom1-cluster-backups
-      path: /
+      path: /authentik/
       accessKey: ""
       secretKey: ""
       # -- Use the role based authentication without providing explicitly the keys
