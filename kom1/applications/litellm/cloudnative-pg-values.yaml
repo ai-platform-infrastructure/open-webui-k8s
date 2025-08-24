@@ -371,11 +371,11 @@ cloudnative-pg:
 
   backups:
     # -- You need to configure backups manually, so backups are disabled by default.
-    enabled: false
+    enabled: true
 
     # -- Overrides the provider specific default endpoint. Defaults to:
     # S3: https://s3.<region>.amazonaws.com"
-    endpointURL: ""  # Leave empty if using the default S3 endpoint
+    endpointURL: https://hel1.your-objectstorage.com  # Leave empty if using the default S3 endpoint
     # -- Specifies a CA bundle to validate a privately signed certificate.
     endpointCA:
       # -- Creates a secret with the given value if true, otherwise uses an existing secret.
@@ -392,9 +392,9 @@ cloudnative-pg:
     # -- One of `s3`, `azure` or `google`
     provider: s3
     s3:
-      region: ""
-      bucket: ""
-      path: "/"
+      region: hel1
+      bucket: kom1-cluster-backups
+      path: /litellm/
       accessKey: ""
       secretKey: ""
       # -- Use the role based authentication without providing explicitly the keys
@@ -415,22 +415,22 @@ cloudnative-pg:
       applicationCredentials: ""
     secret:
       # -- Whether to create a secret for the backup credentials
-      create: true
+      create: false
       # -- Name of the backup credentials secret
-      name: ""
+      name: hetzner-s3-backup-credentials
 
     wal:
       # -- WAL compression method. One of `` (for no compression), `gzip`, `bzip2` or `snappy`.
       compression: gzip
       # -- Whether to instruct the storage provider to encrypt WAL files. One of `` (use the storage container default), `AES256` or `aws:kms`.
-      encryption: AES256
+      encryption: ''
       # -- Number of WAL files to be archived or restored in parallel.
       maxParallel: 1
     data:
       # -- Data compression method. One of `` (for no compression), `gzip`, `bzip2` or `snappy`.
       compression: gzip
       # -- Whether to instruct the storage provider to encrypt data files. One of `` (use the storage container default), `AES256` or `aws:kms`.
-      encryption: AES256
+      encryption: ''
       # -- Number of data files to be archived or restored in parallel.
       jobs: 2
 
