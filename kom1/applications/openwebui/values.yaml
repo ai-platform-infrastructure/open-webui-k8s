@@ -299,11 +299,11 @@ open-webui:
 
     # Open telemetry
     - name: ENABLE_OTEL
-      value: "false"
+      value: "true"
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
-      value: "http://alloy:4317"
+      value: "http://alloy.alloy.svc.cluster.local:4317"
     - name: OTEL_EXPORTER_OTLP_INSECURE
-      value: "false"
+      value: "true"
     - name: OTEL_BASIC_AUTH_USERNAME
       value: ""
     - name: OTEL_BASIC_AUTH_PASSWORD
