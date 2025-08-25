@@ -152,12 +152,12 @@ open-webui:
     class: "traefik"
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
-    host: webui.ai.itkdev.dk
+    host: ai.aarhuskommune.dk
     additionalHosts: []
     tls:
       - hosts:
-          - webui.ai.itkdev.dk
-        secretName: webui.ai.itkdev.dk-tls
+          - ai.aarhuskommune.dk
+        secretName: ai.aarhuskommune.dk-tls
     existingSecret: ""
     extraLabels: {}
     # extraLabels:
@@ -276,7 +276,7 @@ open-webui:
     - name: ENABLE_LOGIN_FORM
       value: "false"
     - name: WEBUI_URL
-      value: "https://webui.ai.itkdev.dk"
+      value: "https://ai.aarhuskommune.dk"
     - name: CORS_ALLOW_ORIGIN
       value: "*"
     - name: USER_AGENT
