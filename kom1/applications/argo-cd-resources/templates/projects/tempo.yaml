@@ -6,7 +6,7 @@ metadata:
 spec:
   destinations:
   - name: in-cluster
-    namespace: tempo
+    namespace: monitoring
     server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ''

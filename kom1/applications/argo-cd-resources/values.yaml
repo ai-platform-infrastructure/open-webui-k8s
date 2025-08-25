@@ -38,7 +38,7 @@ apps:
 
   - name: tempo
     project: tempo
-    namespace: tempo
+    namespace: monitoring
     automated: true
     valueFiles:
       - values.yaml
