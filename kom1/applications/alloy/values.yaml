@@ -3,7 +3,7 @@ alloy:
   nameOverride: null
 
   # -- Overrides the chart's namespace.
-  namespaceOverride: alloy
+  namespaceOverride: monitoring
 
   # -- Overrides the chart's computed fullname. Used to change the full prefix of
   # resource names.
@@ -72,7 +72,7 @@ alloy:
         
         prometheus.remote_write "default" {
           endpoint {
-            url = "http://prometheus:9090/api/v1/write"
+            url = "http://prometheus-stack-prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
           }
         }
 

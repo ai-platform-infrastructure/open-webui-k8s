@@ -45,7 +45,7 @@ apps:
 
   - name: alloy
     project: alloy
-    namespace: alloy
+    namespace: monitoring
     automated: true
     valueFiles:
       - values.yaml
