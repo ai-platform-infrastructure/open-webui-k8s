@@ -44,10 +44,10 @@ tempo:
     memBallastSizeMbs: 1024
     multitenancyEnabled: false
     # -- If true, Tempo will report anonymous usage data about the shape of a deployment to Grafana Labs
-    reportingEnabled: true
+    reportingEnabled: false
     metricsGenerator:
       # -- If true, enables Tempo's metrics generator (https://grafana.com/docs/tempo/next/metrics-generator/)
-      enabled: false
+      enabled: true
       remoteWriteUrl: "http://prometheus.monitoring:9090/api/v1/write"
     # -- Configuration options for the ingester.
     # Refers to: https://grafana.com/docs/tempo/latest/configuration/#ingester
@@ -62,7 +62,15 @@ tempo:
     #  max_concurrent_queries: 20
     # -- Configuration options for the query-fronted.
     # Refers to: https://grafana.com/docs/tempo/latest/configuration/#query-frontend
-    queryFrontend: {}
+    queryFrontend:
+      search:
+        duration_slo: 10s
+        throughput_bytes_slo: 1.073741824e+09
+        metadata_slo:
+          duration_slo: 10s
+          throughput_bytes_slo: 1.073741824e+09
+      trace_by_id:
+        duration_slo: 10s
     #  search:
     #    concurrent_jobs: 2000
     retention: 168h
@@ -184,6 +192,13 @@ tempo:
         {{- toYaml .Values.tempo.overrides | nindent 6 }}
         {{- if .Values.tempo.metricsGenerator.enabled }}
       metrics_generator:
+            registry:
+              external_labels:
+                source: tempo
+                cluster: production
+            processor:
+              service_graphs:
+                histogram_buckets: [ 0.1, 0.2, 0.5, 1, 2, 5, 10 ]
             storage:
               path: "/tmp/tempo"
               remote_write:
@@ -191,6 +206,11 @@ tempo:
             traces_storage:
               path: "/tmp/traces"
         {{- end }}
+      overrides:
+        defaults:
+          metrics_generator:
+            processors: [service-graphs, span-metrics, local-blocks] # enables metrics generator
+            generate_native_histograms: both
 
   tempoQuery:
     repository: grafana/tempo-query
