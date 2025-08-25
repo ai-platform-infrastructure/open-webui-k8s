@@ -63,6 +63,14 @@ prometheus-stack:
         type: loki
         access: proxy
         url: http://loki-headless:3100
+      - name: tempo
+        type: Tempo
+        access: proxy
+        url: http://tempo:3100
+        jsonData:
+          httpMethod: GET
+          serviceMap:
+            datasourceUid: 'prometheus'
 
     grafana.ini:
       server:

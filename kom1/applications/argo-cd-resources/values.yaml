@@ -50,6 +50,13 @@ apps:
     valueFiles:
       - values.yaml
 
+  - name: loki
+    project: loki
+    namespace: monitoring
+    automated: true
+    valueFiles:
+      - values.yaml
+
   - name: cloudnative-pg-operator
     project: cloudnative-pg-operator
     namespace: cloudnative-pg-operator

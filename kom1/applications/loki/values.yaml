@@ -1,0 +1,34 @@
+loki:
+  deploymentMode: SingleBinary
+
+  loki:
+    commonConfig:
+      replication_factor: 1
+    storage:
+      type: 'filesystem'
+
+  singleBinary:
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+    persistence:
+      enabled: true
+      size: 5Gi
+
+  # Enable headless service for discovery
+  headlessService:
+    enabled: true
+
+  monitoring:
+    serviceMonitor:
+      enabled: true
+    lokiCanary:
+      enabled: false
+
+  test:
+    enabled: false

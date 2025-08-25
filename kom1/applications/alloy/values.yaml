@@ -53,6 +53,7 @@ alloy:
         otelcol.processor.batch "default" {
           output {
             metrics = [otelcol.exporter.prometheus.metrics.input]
+            logs    = [otelcol.exporter.loki.logs.input]
             traces  = [otelcol.exporter.otlp.traces.input]
           }
         }
@@ -63,6 +64,16 @@ alloy:
             tls {
               insecure = true
             }
+          }
+        }
+        
+        otelcol.exporter.loki "logs" {
+          forward_to = [loki.write.default.receiver]
+        }
+        
+        loki.write "default" {
+          endpoint {
+            url = "http://loki:3100/loki/api/v1/push"
           }
         }
         
