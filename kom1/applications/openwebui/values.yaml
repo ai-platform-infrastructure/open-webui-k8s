@@ -300,6 +300,12 @@ open-webui:
     # Open telemetry
     - name: ENABLE_OTEL
       value: "true"
+    - name: ENABLE_OTEL_METRICS
+      value: "false"
+    - name: ENABLE_OTEL_TRACES
+      value: "true"
+    - name: ENABLE_OTEL_LOGS
+      value: "false"
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
       value: "alloy.alloy.svc.cluster.local:4317"
     - name: OTEL_EXPORTER_OTLP_INSECURE
