@@ -569,7 +569,7 @@ open-webui:
   logging:
     # -- Set the global log level ["notset", "debug", "info" (default), "warning", "error", "critical"]
     # @section -- Logging configuration
-    level: "info"
+    level: "debug"
 
     # Optional granularity: override log levels per subsystem/component
     # if not set, it will use the global level (see. https://docs.openwebui.com/getting-started/advanced-topics/logging#%EF%B8%8F-appbackend-specific-logging-levels)
