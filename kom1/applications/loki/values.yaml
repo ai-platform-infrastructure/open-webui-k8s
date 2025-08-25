@@ -2,78 +2,90 @@ loki:
   deploymentMode: SingleBinary
 
   loki:
-    auth_enabled: false  # Disable auth for simplicity
+    auth_enabled: false
     server:
       http_listen_port: 3100
       grpc_listen_port: 9095
       log_level: info
-      # Add server timeout settings
-      http_server_read_timeout: 30s
-      http_server_write_timeout: 30s
-    limits_config:
-      # Limit ingestion rate to prevent overwhelming Loki
-      ingestion_rate_mb: 10              # Limit to 10MB/min per stream
-      ingestion_burst_size_mb: 20        # Allow bursts up to 20MB
-      max_streams_per_user: 10000        # Limit number of streams
-      max_line_size: 256KB               # Limit log line size
-      # Retention settings
-      retention_period: 168h             # Keep logs for 7 days
-      # Query limits
-      max_query_length: 12h              # Limit query time range
-      max_query_parallelism: 32          # Limit concurrent queries
-      # Split queries to reduce memory usage
-      split_queries_by_interval: 15m
     commonConfig:
       path_prefix: /var/loki
-      replication_factor: 1  # Single binary only needs replication factor of 1
+      replication_factor: 1
+    # Proper schema configuration (required)
+    schemaConfig:
+      configs:
+        - from: 2024-01-01
+          store: tsdb
+          object_store: filesystem
+          schema: v13
+          index:
+            prefix: index_
+            period: 24h
+    # Storage configuration
     storage:
       type: 'filesystem'
       filesystem:
         chunks_directory: /var/loki/chunks
         rules_directory: /var/loki/rules
-    # Add schema config to optimize storage
-    schema_config:
-      configs:
-        - from: 2020-10-24
-          store: boltdb-shipper
-          object_store: filesystem
-          schema: v11
-          index:
-            prefix: index_
-            period: 24h
-    useTestSchema: false  # Disable test schema, use proper schema
+    # Rate limiting
+    limits_config:
+      ingestion_rate_mb: 10
+      ingestion_burst_size_mb: 20
+      per_stream_rate_limit: 3MB
+      per_stream_rate_limit_burst: 15MB
+      max_streams_per_user: 10000
+      max_line_size: 256KB
+      reject_old_samples: true
+      reject_old_samples_max_age: 168h
+    # Disable memberlist clustering
+    memberlist:
+      join_members: []
+    # Configure ingester for single binary
+    ingester:
+      lifecycler:
+        ring:
+          kvstore:
+            store: inmemory
+          replication_factor: 1
+    # Table manager
+    table_manager:
+      retention_deletes_enabled: true
+      retention_period: 720h
+    # Compactor
+    compactor:
+      working_directory: /var/loki/compactor
+      retention_enabled: true
+      retention_delete_delay: 2h
+      retention_delete_worker_count: 150
 
   singleBinary:
     replicas: 1
     resources:
       requests:
-        cpu: 200m       # Increased CPU request
-        memory: 256Mi   # Keep request reasonable
+        cpu: 200m
+        memory: 512Mi
       limits:
-        cpu: 1000m      # Significantly increased CPU limit
-        memory: 1Gi     # Significantly increased memory limit
-    # Configure readiness probe with longer delays
+        cpu: 1000m
+        memory: 2Gi
     readinessProbe:
       httpGet:
         path: /ready
         port: 3100
-      initialDelaySeconds: 45  # Longer initial delay
-      periodSeconds: 10
-      timeoutSeconds: 10       # Longer timeout
+      initialDelaySeconds: 60
+      periodSeconds: 15
+      timeoutSeconds: 10
       successThreshold: 1
       failureThreshold: 6
-    # Configure liveness probe to be less aggressive
     livenessProbe:
       httpGet:
         path: /ready
         port: 3100
-      initialDelaySeconds: 90  # Much longer initial delay
+      initialDelaySeconds: 120
       periodSeconds: 30
       timeoutSeconds: 10
-      failureThreshold: 5      # Allow more failures before restart
+      failureThreshold: 5
     persistence:
       enabled: true
-      size: 10Gi      # Increased storage size
+      size: 10Gi
 
   # Ensure all other deployment modes have 0 replicas
   write:
@@ -85,40 +97,38 @@ loki:
   ingester:
     replicas: 0
 
-  # Enable gateway for routing
+  # Gateway configuration
   gateway:
     enabled: true
     replicas: 1
     basicAuth:
-      enabled: false  # Disable auth for simplicity
+      enabled: false
 
-  # Disable memberlist service explicitly
+  # Disable clustering services
   memberlist:
     service:
       enabled: false
 
-  # Enable headless service
   headlessService:
-    enabled: true
+    enabled: false
 
-  # Disable enterprise features
+  # Enterprise features
   enterprise:
     enabled: false
 
-  # Disable canary for simplicity
+  # Canary
   lokiCanary:
     enabled: false
 
   test:
     enabled: false
 
-  # Configure RBAC to be namespaced only
+  # RBAC
   rbac:
     pspEnabled: false
     sccEnabled: false
-    namespaced: true  # Use only namespace-scoped RBAC resources
+    namespaced: true
 
   serviceAccount:
     create: true
     automountServiceAccountToken: true
-
