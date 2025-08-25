@@ -301,7 +301,7 @@ open-webui:
     - name: ENABLE_OTEL
       value: "true"
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
-      value: "http://alloy.alloy.svc.cluster.local:4317"
+      value: "alloy.alloy.svc.cluster.local:4317"
     - name: OTEL_EXPORTER_OTLP_INSECURE
       value: "true"
 
