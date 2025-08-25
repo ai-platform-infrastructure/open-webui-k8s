@@ -43,6 +43,11 @@ loki:
     basicAuth:
       enabled: false  # Disable auth for simplicity
 
+  # Disable clustering services
+  memberlist:
+    service:
+      enabled: false
+
   # Enable headless service
   headlessService:
     enabled: true
