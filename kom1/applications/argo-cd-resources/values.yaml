@@ -36,6 +36,13 @@ apps:
     syncOptions:
       - ServerSideApply=true
 
+  - name: tempo
+    project: tempo
+    namespace: tempo
+    automated: true
+    valueFiles:
+      - values.yaml
+
   - name: cloudnative-pg-operator
     project: cloudnative-pg-operator
     namespace: cloudnative-pg-operator
