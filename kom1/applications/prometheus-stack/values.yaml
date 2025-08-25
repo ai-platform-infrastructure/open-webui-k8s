@@ -63,8 +63,8 @@ prometheus-stack:
         type: loki
         access: proxy
         url: http://loki-headless:3100
-      - name: tempo
-        type: Tempo
+      - name: Tempo
+        type: tempo
         access: proxy
         url: http://tempo:3100
         jsonData:
