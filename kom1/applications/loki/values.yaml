@@ -2,13 +2,19 @@ loki:
   deploymentMode: SingleBinary
 
   loki:
+    auth_enabled: false  # Disable auth for simplicity
     commonConfig:
-      replication_factor: 1
+      path_prefix: /var/loki
+      replication_factor: 1  # Single binary only needs replication factor of 1
     storage:
       type: 'filesystem'
+      filesystem:
+        chunks_directory: /var/loki/chunks
+        rules_directory: /var/loki/rules
+    useTestSchema: true  # Enable test schema for easier setup
 
   singleBinary:
-    replicas: 1
+    replicas: 1  # Enable single binary with 1 replica
     resources:
       requests:
         cpu: 100m
@@ -20,15 +26,34 @@ loki:
       enabled: true
       size: 5Gi
 
-  # Enable headless service for discovery
+  # Ensure all other deployment modes have 0 replicas
+  write:
+    replicas: 0
+  read:
+    replicas: 0
+  backend:
+    replicas: 0
+  ingester:
+    replicas: 0
+
+  # Enable gateway for routing
+  gateway:
+    enabled: true
+    replicas: 1
+    basicAuth:
+      enabled: false  # Disable auth for simplicity
+
+  # Enable headless service
   headlessService:
     enabled: true
 
-  monitoring:
-    serviceMonitor:
-      enabled: true
-    lokiCanary:
-      enabled: false
+  # Disable enterprise features
+  enterprise:
+    enabled: false
+
+  # Disable canary for simplicity
+  lokiCanary:
+    enabled: false
 
   test:
     enabled: false
