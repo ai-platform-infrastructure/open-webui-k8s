@@ -59,7 +59,7 @@ alloy:
         
         otelcol.exporter.otlp "traces" {
           client {
-            endpoint = "http://tempo.tempo.svc.cluster.local:4317"
+            endpoint = "http://tempo:4317"
             tls {
               insecure = true
             }
@@ -72,7 +72,7 @@ alloy:
         
         prometheus.remote_write "default" {
           endpoint {
-            url = "http://prometheus-stack-prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
+            url = "http://prometheus-stack-prometheus:9090/api/v1/write"
           }
         }
 
