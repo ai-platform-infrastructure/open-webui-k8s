@@ -304,10 +304,6 @@ open-webui:
       value: "http://alloy.alloy.svc.cluster.local:4317"
     - name: OTEL_EXPORTER_OTLP_INSECURE
       value: "true"
-    - name: OTEL_BASIC_AUTH_USERNAME
-      value: ""
-    - name: OTEL_BASIC_AUTH_PASSWORD
-      value: ""
 
     # OIDC
     - name: OAUTH_EMAIL_CLAIM
