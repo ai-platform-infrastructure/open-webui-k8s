@@ -5,7 +5,3 @@ dependencies:
     - name: alloy
       version: 1.2.1
       repository: https://grafana.github.io/helm-charts
-    - name: grafana-agent-operator
-      version: 0.5.1
-      repository: https://grafana.github.io/helm-charts
-      condition: grafana-agent-operator.enabled

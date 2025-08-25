@@ -24,7 +24,7 @@ alloy:
 
   crds:
     # -- Whether to install CRDs for monitoring.
-    create: true
+    create: false
 
   ## Various Alloy settings. For backwards compatibility with the grafana-agent
   ## chart, this field may also be called "agent". Naming this field "agent" is
