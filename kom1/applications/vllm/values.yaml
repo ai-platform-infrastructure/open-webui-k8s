@@ -26,6 +26,14 @@ vllm:
           enablePrefixCaching: true
           maxModelLen: 16384
           extraArgs: ["--tokenizer-mode", "mistral", "--config_format", "mistral", "--load_format", "mistral"]
+          tensorParallelSize: 1
+          pipelineParallelSize: 2
+
+        raySpec:
+          headNode:
+            requestCPU: 1
+            requestMemory: "56Gi"
+            requestGPU: 1
 
         lmcacheConfig:
           enabled: false
