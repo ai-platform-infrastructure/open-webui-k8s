@@ -109,6 +109,7 @@ prometheus-stack:
       #       - prometheus.kom1.deranged.dk
 
     prometheusSpec:
+      enableRemoteWriteReceiver: true
       retention: 7d
       storageSpec:
         volumeClaimTemplate:
