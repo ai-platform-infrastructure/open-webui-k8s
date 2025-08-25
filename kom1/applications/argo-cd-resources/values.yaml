@@ -43,6 +43,13 @@ apps:
     valueFiles:
       - values.yaml
 
+  - name: alloy
+    project: alloy
+    namespace: alloy
+    automated: true
+    valueFiles:
+      - values.yaml
+
   - name: cloudnative-pg-operator
     project: cloudnative-pg-operator
     namespace: cloudnative-pg-operator
