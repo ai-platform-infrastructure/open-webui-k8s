@@ -1,0 +1,53 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: s3-backup
+spec:
+  # this runs every hour
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    metadata:
+      name: s3-backup
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - image: rclone/rclone:1.70.3-sb.0
+              name: s3-backup
+              command: ["/bin/sh", "-c"]
+              args:
+                - mkdir -p /config/rclone &&
+                  rclone config create cephobjectstore s3
+                    provider Other
+                    access_key_id $CEPH_ACCESS_KEY_ID
+                    secret_access_key $CEPH_SECRET_ACCESS_KEY
+                    endpoint http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc >> /config/rclone/rclone.conf &&
+                  rclone config create hetzner s3
+                    provider Other
+                    access_key_id $HETZNER_ACCESS_KEY_ID
+                    secret_access_key $HETZNER_SECRET_ACCESS_KEY
+                    endpoint https://hel1.your-objectstorage.com >> /config/rclone/rclone.conf &&
+                  rclone copy --progress cephobjectstore:openwebui hetzner:kom1-cluster-backups/openwebui-s3
+              env:
+                - name: CEPH_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-openwebui
+                      key: AWS_ACCESS_KEY_ID
+                - name: CEPH_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-openwebui
+                      key: AWS_SECRET_ACCESS_KEY
+                - name: HETZNER_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: hetzner-s3-backup-credentials
+                      key: ACCESS_KEY_ID
+                - name: HETZNER_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: hetzner-s3-backup-credentials
+                      key: ACCESS_SECRET_KEY
