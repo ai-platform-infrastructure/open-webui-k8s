@@ -73,6 +73,13 @@ apps:
       - cloudnative-pg-values.yaml
       - redis-replication-values.yaml
 
+  - name: kuberay-operator
+    project: kuberay-operator
+    namespace: kuberay-operator
+    automated: true
+    syncOptions:
+      - ServerSideApply=true
+
   - name: litellm
     project: litellm
     namespace: litellm
