@@ -37,10 +37,10 @@ alloy:
       content: |-
         otelcol.receiver.otlp "otlp_receiver" {
           grpc {
-            endpoint = "0.0.0.0:4317"
+            endpoint = "127.0.0.1:4317"
           }
           http {
-            endpoint = "0.0.0.0:4318"
+            endpoint = "127.0.0.1:4318"
           }
         
           output {
@@ -463,6 +463,18 @@ alloy:
     internalTrafficPolicy: Cluster
     annotations: {}
       # cloud.google.com/load-balancer-type: Internal
+
+    # Add explicit port configuration
+    additionalPorts:
+      - name: grpc-otlp
+        port: 4317
+        protocol: TCP
+        targetPort: 4317
+      - name: http-otlp
+        port: 4318
+        protocol: TCP
+        targetPort: 4318
+
 
   serviceMonitor:
     enabled: false
