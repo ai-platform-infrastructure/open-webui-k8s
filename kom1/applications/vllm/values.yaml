@@ -27,7 +27,7 @@ vllm:
           maxModelLen: 16384
           extraArgs: ["--tokenizer-mode", "mistral", "--config_format", "mistral", "--load_format", "mistral"]
           tensorParallelSize: 1
-          pipelineParallelSize: 2
+          pipelineParallelSize: 1
 
         raySpec:
           headNode:
