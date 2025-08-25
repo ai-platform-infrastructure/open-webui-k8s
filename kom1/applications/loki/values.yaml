@@ -2,38 +2,26 @@ loki:
   deploymentMode: SingleBinary
 
   loki:
-    auth_enabled: false
-    server:
-      http_listen_port: 3100
-      grpc_listen_port: 9095
-      log_level: info
+    auth_enabled: false  # Disable auth for simplicity
+    commonConfig:
+      path_prefix: /var/loki
+      replication_factor: 1  # Single binary only needs replication factor of 1
+    storage:
+      type: 'filesystem'
+      filesystem:
+        chunks_directory: /var/loki/chunks
+        rules_directory: /var/loki/rules
+    useTestSchema: true  # Enable test schema for easier setup
 
   singleBinary:
-    replicas: 1
+    replicas: 1  # Enable single binary with 1 replica
     resources:
       requests:
-        cpu: 200m
+        cpu: 100m
         memory: 512Mi
       limits:
-        cpu: 1000m
-        memory: 2Gi
-    readinessProbe:
-      httpGet:
-        path: /ready
-        port: 3100
-      initialDelaySeconds: 60
-      periodSeconds: 15
-      timeoutSeconds: 10
-      successThreshold: 1
-      failureThreshold: 6
-    livenessProbe:
-      httpGet:
-        path: /ready
-        port: 3100
-      initialDelaySeconds: 120
-      periodSeconds: 30
-      timeoutSeconds: 10
-      failureThreshold: 5
+        cpu: 200m
+        memory: 1024Mi
     persistence:
       enabled: true
       size: 10Gi
@@ -48,38 +36,35 @@ loki:
   ingester:
     replicas: 0
 
-  # Gateway configuration
+  # Enable gateway for routing
   gateway:
     enabled: true
     replicas: 1
     basicAuth:
-      enabled: false
+      enabled: false  # Disable auth for simplicity
 
-  # Disable clustering services
-  memberlist:
-    service:
-      enabled: false
-
+  # Enable headless service
   headlessService:
-    enabled: false
+    enabled: true
 
-  # Enterprise features
+  # Disable enterprise features
   enterprise:
     enabled: false
 
-  # Canary
+  # Disable canary for simplicity
   lokiCanary:
     enabled: false
 
   test:
     enabled: false
 
-  # RBAC
+  # Configure RBAC to be namespaced only
   rbac:
     pspEnabled: false
     sccEnabled: false
-    namespaced: true
+    namespaced: true  # Use only namespace-scoped RBAC resources
 
   serviceAccount:
     create: true
     automountServiceAccountToken: true
+
