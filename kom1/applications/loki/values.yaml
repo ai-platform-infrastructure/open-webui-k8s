@@ -10,7 +10,7 @@ loki:
     commonConfig:
       path_prefix: /var/loki
       replication_factor: 1
-    # Proper schema configuration (required)
+    # Proper schema configuration
     schemaConfig:
       configs:
         - from: 2024-01-01
@@ -46,16 +46,22 @@ loki:
           kvstore:
             store: inmemory
           replication_factor: 1
-    # Table manager
-    table_manager:
-      retention_deletes_enabled: true
-      retention_period: 720h
-    # Compactor
+    # Compactor configuration with delete request store
     compactor:
       working_directory: /var/loki/compactor
       retention_enabled: true
       retention_delete_delay: 2h
       retention_delete_worker_count: 150
+      delete_request_store: filesystem  # Required when retention is enabled
+    # Configure storage for delete requests
+    storage_config:
+      filesystem:
+        directory: /var/loki/chunks
+      # Configure delete request store
+      delete_store:
+        store: filesystem
+        filesystem:
+          directory: /var/loki/delete-requests
 
   singleBinary:
     replicas: 1
