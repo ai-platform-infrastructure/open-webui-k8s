@@ -58,13 +58,13 @@ loki:
   test:
     enabled: false
 
-  # Disable RBAC
+  # Configure RBAC to be namespaced only
   rbac:
     pspEnabled: false
     sccEnabled: false
-    namespaced: false
+    namespaced: true  # Use only namespace-scoped RBAC resources
 
-  # ServiceAccount configuration
   serviceAccount:
     create: true
-    automountServiceAccountToken: false  # Disable token mounting since RBAC is disabled
+    automountServiceAccountToken: true
+
