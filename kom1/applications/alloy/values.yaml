@@ -198,7 +198,7 @@ alloy:
 
   rbac:
     # -- Whether to create RBAC resources for Alloy.
-    create: true
+    create: false
 
   serviceAccount:
     # -- Whether to create a service account for the Grafana Alloy deployment.
