@@ -242,7 +242,7 @@ alloy:
     type: 'deployment'
 
     # -- Number of pods to deploy. Ignored when controller.type is 'daemonset'.
-    replicas: 3
+    replicas: 1
 
     # -- Extra labels to add to the controller.
     extraLabels: {}
