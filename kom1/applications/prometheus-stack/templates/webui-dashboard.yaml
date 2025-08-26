@@ -7,7 +7,8 @@ metadata:
   annotations:
      grafana_folder: "common"
 data:
-  dcgm-dashboard.json: |-
+  dcgm-dashboard.json: |
+    {{`
     {
       "annotations": {
         "list": [
@@ -310,7 +311,7 @@ data:
               },
               "direction": "backward",
               "editorMode": "code",
-              "expr": "{job=\"open-webui\", level!=\"INFO\"} | json | label_format message=\"{{ "{{" }}.body{{ "}}" }}\" | line_format \"{{ "{{" }}.message{{ "}}" }}\"",
+              "expr": "{job=\"open-webui\", level!=\"INFO\"} | json | label_format message=\"{{.body}}\" | line_format \"{{.message}}\"",
               "queryType": "range",
               "refId": "A"
             }
@@ -353,3 +354,4 @@ data:
       "uid": "f30987ec-20fd-42b3-97a4-fea64e3153ae",
       "version": 5
     }
+    `}}
