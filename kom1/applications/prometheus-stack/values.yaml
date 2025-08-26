@@ -72,7 +72,7 @@ prometheus-stack:
           serviceMap:
             datasourceUid: 'prometheus'
           tracesToLogs:
-            datasourceUid: 'loki'
+            datasourceUid: 'Loki'
             tags: [ 'job', 'instance', 'pod', 'namespace' ]
             mappedTags: [
               { key: 'service.name', value: 'service' },
@@ -94,7 +94,7 @@ prometheus-stack:
                 query: 'sum(rate(tempo_spanmetrics_latency_bucket[$__rate_interval])) by (service_name)'
           nodeGraph:
             enabled: true
-        
+
     grafana.ini:
       server:
         domain: grafana.kom1.deranged.dk
