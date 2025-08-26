@@ -310,7 +310,7 @@ data:
               },
               "direction": "backward",
               "editorMode": "code",
-              "expr": "{job=\"open-webui\", level!=\"INFO\"} | json | label_format message=\"{{ \"{{\" }}.body{{ \"}}\" }}\" | line_format \"{{ \"{{\" }}.message{{ \"}}\" }}\"",
+              "expr": "{job=\"open-webui\", level!=\"INFO\"} | json | label_format message=\"{{ `{{.body}}` }}\" | line_format \"{{ `{{.message}}` }}\""
               "queryType": "range",
               "refId": "A"
             }
