@@ -118,6 +118,13 @@ apps:
     valueFiles:
       - values.yaml
 
+  - name: vllm2
+    project: vllm2
+    namespace: vllm2
+    automated: true
+    valueFiles:
+      - values.yaml
+
   - name: docling
     project: docling
     namespace: docling
