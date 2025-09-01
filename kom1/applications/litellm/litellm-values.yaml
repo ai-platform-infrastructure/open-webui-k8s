@@ -110,6 +110,11 @@ litellm:
           model: openai/mistralai/Mistral-Small-3.2-24B-Instruct-2506
           api_key: os.environ/CA_VLLM_LOCAL_API_KEY
           api_base: http://vllm-router-service.vllm.svc.cluster.local/v1
+      - model_name: gpu-test
+        litellm_params:
+          model: openai/distilbert/distilgpt2
+          api_key: os.environ/CA_VLLM_LOCAL_API_KEY
+          api_base: http://vllm-ray-router-service.vllm-ray.svc.cluster.local/v1
     general_settings:
       block_robots: true
       disable_error_logs: True
