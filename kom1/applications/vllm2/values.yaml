@@ -21,6 +21,8 @@ vllm2:
         requestGPU: 1
 
         pvcStorage: "200Gi"
+        pvcAccessMode:
+          - ReadWriteMany
 
         vllmConfig:
           enableChunkedPrefill: true
