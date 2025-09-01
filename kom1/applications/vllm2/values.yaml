@@ -22,7 +22,7 @@ vllm2:
 
         pvcStorage: "200Gi"
         pvcAccessMode:
-          - ReadWriteMany
+          - ReadWriteOnce
 
         vllmConfig:
           enableChunkedPrefill: true
