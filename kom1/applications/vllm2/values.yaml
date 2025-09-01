@@ -33,7 +33,7 @@ vllm2:
           cpuOffloadingBufferSize: "20"
 
         hf_token:
-          secretName: "hf-secret"
+          secretName: "hf-secret2"
           secretKey: "TOKEN"
 
         nodeSelectorTerms:
@@ -44,7 +44,7 @@ vllm2:
                   - "true"
 
     vllmApiKey:
-      secretName: "vllm-secret"
+      secretName: "vllm-secret2"
       secretKey: "KEY"
 
     tolerations:
