@@ -29,7 +29,7 @@ vllm2:
           enablePrefixCaching: true
           maxModelLen: 16384
           extraArgs: ["--tokenizer-mode", "mistral", "--config_format", "mistral", "--load_format", "mistral"]
-          tensorParallelSize: 2
+          tensorParallelSize: 1
           pipelineParallelSize: 1
 
         lmcacheConfig:
