@@ -30,7 +30,7 @@ vllm2:
           maxModelLen: 16384
           extraArgs: ["--tokenizer-mode", "mistral", "--config_format", "mistral", "--load_format", "mistral"]
           tensorParallelSize: 1
-          pipelineParallelSize: 2
+          pipelineParallelSize: 1
 
         lmcacheConfig:
           enabled: false
@@ -46,29 +46,6 @@ vllm2:
                 operator: "In"
                 values:
                   - "true"
-
-        env:
-          - name: NCCL_DEBUG
-            value: "INFO"
-          - name: NCCL_P2P_DISABLE
-            value: "1"
-          - name: NCCL_IB_DISABLE
-            value: "1"
-          - name: NCCL_SOCKET_NTHREADS
-            value: "1"
-          - name: NCCL_NSOCKS_PERTHREAD
-            value: "1"
-          - name: NCCL_DEBUG_SUBSYS
-            value: "ALL"
-          - name: NCCL_NET_GDR_LEVEL
-            value: "0"
-
-        shmSize: "20Gi"
-
-        raySpec:
-          headNode:
-            requestCPU: 2
-            requestMemory: "20Gi"
 
     vllmApiKey:
       secretName: "vllm-secret2"
