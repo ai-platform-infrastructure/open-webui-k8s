@@ -139,7 +139,9 @@ open-webui:
   copyAppData:
     # -- Open WebUI copy-app-data init container command (overrides default)
     command:
-      - /bin/sh -c ls
+      - /bin/sh
+      - -c
+      - ls
     # -- Open WebUI copy-app-data init container arguments (overrides default)
     args: []
 
