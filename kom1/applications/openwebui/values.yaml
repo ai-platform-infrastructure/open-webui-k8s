@@ -138,7 +138,8 @@ open-webui:
 
   copyAppData:
     # -- Open WebUI copy-app-data init container command (overrides default)
-    command: []
+    command:
+      - /bin/sh -c ls
     # -- Open WebUI copy-app-data init container arguments (overrides default)
     args: []
 
@@ -165,7 +166,7 @@ open-webui:
 
   persistence:
     enabled: true
-    size: 2Gi
+    size: 10Gi
     # -- Use existingClaim if you want to re-use an existing Open WebUI PVC instead of creating a new one
     existingClaim: ""
     # -- Subdirectory of Open WebUI PVC to mount. Useful if root directory is not empty.
