@@ -269,4 +269,3 @@ qdrant:
   chartTests:
     dbInteraction:
       image: registry.suse.com/bci/bci-base:latest
-  
