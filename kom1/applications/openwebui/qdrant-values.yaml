@@ -1,5 +1,5 @@
 qdrant:
-  replicaCount: 2
+  replicaCount: 1
 
   image:
     repository: docker.io/qdrant/qdrant
@@ -83,6 +83,8 @@ qdrant:
     successThreshold: 1
 
   additionalLabels: {}
+  # additionalAnnotations will be added to all top-level resources (StatefulSet, Service, ConfigMap, etc.)
+  additionalAnnotations: {}
   podAnnotations: {}
   podLabels: {}
 
@@ -267,4 +269,4 @@ qdrant:
   chartTests:
     dbInteraction:
       image: registry.suse.com/bci/bci-base:latest
-
+  
