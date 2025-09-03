@@ -2,7 +2,7 @@ colibo:
   schedule: "0 * * * *"  # Run every hour by default
 
   image:
-    tag: 0.0.3
+    tag: 0.0.4
 
   resources:
     limits:
@@ -23,7 +23,7 @@ colibo:
         idKey: 'COLIBO_CLIENT_ID'
         secretKey: 'COLIBO_CLIENT_SECRET'
     webui:
-      url: 'https://webui.ai.itkdev.dk'
+      url: 'https://ai.aarhuskommune.dk/'
       client:
         existingSecret: 'mbu-colibo-secrets'
         tokenKey: 'WEBUI_TOKEN'
