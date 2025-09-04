@@ -14,12 +14,14 @@ vllm:
 
         modelURL: "mistralai/Mistral-Small-3.2-24B-Instruct-2506"
 
-        replicaCount: 1
+        replicaCount: 3
+
         requestCPU: 4
         requestMemory: "56Gi"
         requestGPU: 1
 
-        pvcStorage: "200Gi"
+        # Temporary workaround for scaling up to more GPU's (currently NFS required to have RWM)
+        # pvcStorage: "200Gi"
 
         vllmConfig:
           enableChunkedPrefill: true
