@@ -7,7 +7,8 @@ metadata:
   annotations:
      grafana_folder: "common"
 data:
-  dcgm-dashboard.json: |-
+  dcgm-dashboard.json: |
+    {{`
     {
       "annotations": {
         "list": [
@@ -30,7 +31,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 31,
+      "id": 32,
       "links": [],
       "panels": [
         {
@@ -93,7 +94,7 @@ data:
               "editorMode": "code",
               "expr": "avg_over_time(DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$host\", gpu=~\"$gpu\"}[$__range:$__interval])",
               "interval": "",
-              "legendFormat": "{{ "{{" }}Hostname{{ "}}" }} - GPU {{ "{{" }}gpu{{ "}}" }}",
+              "legendFormat": "{{Hostname}} - GPU {{gpu}}",
               "range": true,
               "refId": "A"
             }
@@ -161,7 +162,7 @@ data:
               "editorMode": "code",
               "expr": "DCGM_FI_DEV_FB_USED{Hostname=~\"$host\", gpu=~\"$gpu\"} / (DCGM_FI_DEV_FB_USED{Hostname=~\"$host\", gpu=~\"$gpu\"} + DCGM_FI_DEV_FB_FREE{Hostname=~\"$host\", gpu=~\"$gpu\"})",
               "interval": "",
-              "legendFormat": "{{ "{{" }}Hostname}} - GPU {{ "{{" }}gpu{{ "}}" }}",
+              "legendFormat": "{{Hostname}} - GPU {{gpu}}",
               "range": true,
               "refId": "A"
             }
@@ -206,7 +207,7 @@ data:
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
-                  "mode": "normal"
+                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
@@ -265,7 +266,7 @@ data:
               "editorMode": "code",
               "expr": "DCGM_FI_DEV_FB_USED{Hostname=~\"$host\", gpu=~\"$gpu\"}",
               "interval": "",
-              "legendFormat": "{{ "{{" }}Hostname}} - GPU {{ "{{" }}gpu{{ "}}" }}",
+              "legendFormat": "{{Hostname}} - GPU {{gpu}}",
               "range": true,
               "refId": "A"
             }
@@ -310,7 +311,7 @@ data:
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
-                  "mode": "normal"
+                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
@@ -371,7 +372,7 @@ data:
               "editorMode": "code",
               "expr": "DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$host\", gpu=~\"$gpu\"}",
               "interval": "",
-              "legendFormat": "{{ "{{" }}Hostname}} - GPU {{ "{{" }}gpu{{ "}}" }}",
+              "legendFormat": "{{Hostname}} - GPU {{gpu}}",
               "range": true,
               "refId": "A"
             }
@@ -416,7 +417,7 @@ data:
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
-                  "mode": "normal"
+                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
@@ -477,7 +478,7 @@ data:
               "editorMode": "code",
               "expr": "DCGM_FI_DEV_FB_USED{Hostname=~\"$host\", gpu=~\"$gpu\"} / (DCGM_FI_DEV_FB_USED{Hostname=~\"$host\", gpu=~\"$gpu\"} + DCGM_FI_DEV_FB_FREE{Hostname=~\"$host\", gpu=~\"$gpu\"})",
               "interval": "",
-              "legendFormat": "{{ "{{" }}Hostname}} - GPU {{ "{{" }}gpu{{ "}}" }}",
+              "legendFormat": "{{Hostname}} - GPU {{gpu}}",
               "range": true,
               "refId": "A"
             }
@@ -583,7 +584,7 @@ data:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ "{{" }}Hostname}} - GPU {{ "{{" }}gpu{{ "}}" }}",
+              "legendFormat": "{{Hostname}} - GPU {{gpu}}",
               "range": true,
               "refId": "A"
             }
@@ -673,5 +674,7 @@ data:
       "timezone": "",
       "title": "DCGM Dashboard",
       "uid": "nvidia-dcgm-dashboard",
-      "version": 9
+      "version": 1
     }
+    `}}
+    
