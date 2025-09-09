@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: was-redirect
+spec:
+  redirectRegex:
+    regex: "^https?://[^/]+/was"
+    replacement: "https://was.digst.dk/ai-aarhuskommune-dk"
+    permanent: true

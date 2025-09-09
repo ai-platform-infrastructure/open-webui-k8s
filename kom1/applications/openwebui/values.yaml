@@ -155,9 +155,7 @@ open-webui:
     class: "traefik"
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
-      traefik.ingress.kubernetes.io/redirect-regex: ^https?://[^/]+/was(.*)$$
-      traefik.ingress.kubernetes.io/redirect-replacement: https://was.digst.dk/ai-aarhuskommune-dk$1
-      traefik.ingress.kubernetes.io/redirect-permanent: "true"
+      traefik.ingress.kubernetes.io/router.middlewares: openwebui-was-redirect@kubernetescrd
     host: ai.aarhuskommune.dk
     additionalHosts: []
     tls:
