@@ -141,14 +141,14 @@ prometheus-stack:
 
     prometheusSpec:
       enableRemoteWriteReceiver: true
-      retention: 7d
+      retention: 30d
       storageSpec:
         volumeClaimTemplate:
           spec:
             accessModes: ["ReadWriteOnce"]
             resources:
               requests:
-                storage: 20Gi
+                storage: 50Gi
 
   defaultRules:
     rules:
