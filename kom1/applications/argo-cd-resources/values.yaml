@@ -102,6 +102,13 @@ apps:
     valueFiles:
       - values.yaml
 
+  - name: doc-ingestion
+    project: doc-ingestion
+    namespace: doc-ingestion
+    automated: true
+    valueFiles:
+      - values.yaml
+
   - name: openwebui
     project: openwebui
     namespace: openwebui
