@@ -1,133 +1,123 @@
-# Document ingestion route Helm Chart Values
-#
-# External Access Configuration:
-# 1. Ingress (default): Set your domain in ingress.hosts[0].host
-# 2. LoadBalancer: Change service.type to "LoadBalancer"
-# 3. NodePort: Change service.type to "NodePort" and set service.nodePort
-#
-# Examples:
-# helm install doc-ingestion . --set ingress.hosts[0].host=doc-ingestion.mydomain.com
-# helm install doc-ingestion . --set service.type=LoadBalancer --set ingress.enabled=false
+doc-ingestion:
+  # Name overrides
+  nameOverride: ""
+  fullnameOverride: ""
 
-# Name overrides
-nameOverride: ""
-fullnameOverride: ""
+  # Image configuration
+  image:
+    repository: itkdev/doc-ingestion-route
+    tag: "0.0.3"
+    pullPolicy: IfNotPresent
 
-# Image configuration
-image:
-  repository: itkdev/doc-ingestion-route
-  tag: "0.0.3"
-  pullPolicy: IfNotPresent
+  # Replica configuration
+  replicaCount: 1
 
-# Replica configuration
-replicaCount: 1
+  # Service configuration
+  service:
+    # Service type: ClusterIP, LoadBalancer, or NodePort
+    # ClusterIP: Internal cluster access only (requires Ingress for external access)
+    # LoadBalancer: Gets external IP from cloud provider
+    # NodePort: Exposes on all nodes (for development/testing)
+    type: ClusterIP
+    port: 8000
+    targetPort: 8000
+    # Uncomment for NodePort:
+    # nodePort: 30501
 
-# Service configuration
-service:
-  # Service type: ClusterIP, LoadBalancer, or NodePort
-  # ClusterIP: Internal cluster access only (requires Ingress for external access)
-  # LoadBalancer: Gets external IP from cloud provider
-  # NodePort: Exposes on all nodes (for development/testing)
-  type: ClusterIP
-  port: 8000
-  targetPort: 8000
-  # Uncomment for NodePort:
-  # nodePort: 30501
+  # Ingress configuration - ENABLED BY DEFAULT for external access
+  ingress:
+    enabled: false
+    className: ""
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+      # Uncomment for HTTPS with cert-manager:
+      # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+      - host: doc-ingestion.yourdomain.com  # CHANGE THIS TO YOUR DOMAIN
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []
+      # Uncomment for HTTPS:
+      # - secretName: doc-ingestion-tls
+      #   hosts:
+      #     - doc-ingestion.yourdomain.com
 
-# Ingress configuration - ENABLED BY DEFAULT for external access
-ingress:
-  enabled: false
-  className: ""
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    # Uncomment for HTTPS with cert-manager:
-    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
-  hosts:
-    - host: doc-ingestion.yourdomain.com  # CHANGE THIS TO YOUR DOMAIN
-      paths:
-        - path: /
-          pathType: Prefix
-  tls: []
-    # Uncomment for HTTPS:
-    # - secretName: doc-ingestion-tls
-    #   hosts:
-    #     - doc-ingestion.yourdomain.com
+  # doc-ingestion configuration
+  config:
+    # Doc Ingestion Router name
+    APP_NAME: "Document Ingestion Router"
+    # API key used for authentication from open-webui.
+    # Use existing secret and key in that secret
+    apiKeyExistingSecret: "secrets"
+    apiKeyExistingSecretKey: "API_KEY"
+    # If not using secret, specify the API key directly (not recommended for production)
+    API_KEY: ""
+    # Tika base url (location of tika server)
+    TIKA_BASE_URL: "http://tika.tika.svc.cluster.local:9998"
+    # Basic auth credentials for Tika server.
+    # Use existing secret and keys in that secret for Tika credentials
+    tikaExistingSecret: ""
+    tikaUserKey: "tika-user"
+    tikaExistingSecretPasswordKey: "tika-password"
+    # If not using secret, specify credentials directly (not recommended for production)
+    TIKA_USER: ""
+    TIKA_PASSWORD: ""
+    # Additional environment variables
+    extraEnv: []
 
-# doc-ingestion configuration
-config:
-  # Doc Ingestion Router name
-  APP_NAME: "Document Ingestion Router"
-  # API key used for authentication from open-webui.
-  # Use existing secret and key in that secret
-  apiKeyExistingSecret: "secrets"
-  apiKeyExistingSecretKey: "API_KEY"
-  # If not using secret, specify the API key directly (not recommended for production)
-  API_KEY: ""
-  # Tika base url (location of tika server)
-  TIKA_BASE_URL: "http://tika.tika.svc.cluster.local:9998"
-  # Basic auth credentials for Tika server.
-  # Use existing secret and keys in that secret for Tika credentials
-  tikaExistingSecret: ""
-  tikaUserKey: "tika-user"
-  tikaExistingSecretPasswordKey: "tika-password"
-  # If not using secret, specify credentials directly (not recommended for production)
-  TIKA_USER: ""
-  TIKA_PASSWORD: ""
-  # Additional environment variables
-  extraEnv: []
+  # Resource limits
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "2Gi"
+      cpu: "1000m"
 
-# Resource limits
-resources:
-  requests:
-    memory: "512Mi"
-    cpu: "250m"
-  limits:
-    memory: "2Gi"
-    cpu: "1000m"
+  # Security context
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
 
-# Security context
-securityContext:
-  runAsNonRoot: true
-  runAsUser: 1000
-  runAsGroup: 1000
-  fsGroup: 1000
+  # Container security context
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+    capabilities:
+      drop:
+      - ALL
 
-# Container security context
-containerSecurityContext:
-  allowPrivilegeEscalation: false
-  readOnlyRootFilesystem: false
-  capabilities:
-    drop:
-    - ALL
+  # Health check configuration
+  healthCheck:
+    readiness:
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      timeoutSeconds: 3
+      failureThreshold: 3
+    liveness:
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
 
-# Health check configuration
-healthCheck:
-  readiness:
-    initialDelaySeconds: 10
-    periodSeconds: 5
-    timeoutSeconds: 3
-    failureThreshold: 3
-  liveness:
-    initialDelaySeconds: 30
-    periodSeconds: 10
-    timeoutSeconds: 5
-    failureThreshold: 3
+  # Node selector
+  nodeSelector: {}
 
-# Node selector
-nodeSelector: {}
+  # Tolerations
+  tolerations: []
 
-# Tolerations
-tolerations: []
+  # Affinity
+  affinity: {}
 
-# Affinity
-affinity: {}
-
-# Namespace configuration
-namespace:
-  # Name of the namespace (leave empty to use release namespace)
-  # Only set this if you want to create a custom namespace
-  name: ""
-  # Whether to create the namespace (only works when name is specified)
-  # Set to false if namespace already exists or using default/release namespace
-  create: false
+  # Namespace configuration
+  namespace:
+    # Name of the namespace (leave empty to use release namespace)
+    # Only set this if you want to create a custom namespace
+    name: ""
+    # Whether to create the namespace (only works when name is specified)
+    # Set to false if namespace already exists or using default/release namespace
+    create: false
 
