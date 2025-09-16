@@ -1,0 +1,7 @@
+apiVersion: v2
+name: doc-ingestion-route
+version: 0.0.3
+dependencies:
+    - name: doc-ingestion
+      version: 0.0.3
+      repository: https://itk-dev.github.io/helm-charts
