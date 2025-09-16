@@ -7,7 +7,7 @@ open-webui:
   # -- Open WebUI image tags can be found here: https://github.com/open-webui/open-webui
   image:
     repository: itkdev/openwebui
-    tag: "v0.6.26-3"
+    tag: "v0.6.28-1"
     pullPolicy: "IfNotPresent"
 
   ollama:
@@ -322,6 +322,10 @@ open-webui:
       value: "True"
     - name: ENABLE_OAUTH_GROUP_CREATION
       value: "True"
+    - name: ENABLE_OAUTH_ID_TOKEN_COOKIE
+      value: "False"
+    - name: OAUTH_ALLOWED_DOMAINS
+      value: aarhus.dk
 
     # Vector store
     - name: VECTOR_DB
