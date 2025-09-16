@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: doc-ingestion-metrics
+  namespace: doc-ingestion
+  labels:
+    prometheus: prometheus
+    release: prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      environment: router
+      release: router
+  namespaceSelector:
+    matchNames:
+      - doc-ingestion
+  endpoints:
+    - port: http
+      interval: 15s
+      path: /metrics
