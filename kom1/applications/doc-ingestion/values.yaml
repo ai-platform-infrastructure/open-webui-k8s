@@ -64,7 +64,7 @@ config:
   # If not using secret, specify the API key directly (not recommended for production)
   API_KEY: ""
   # Tika base url (location of tika server)
-  TIKA_BASE_URL: "http://tika:9998"
+  TIKA_BASE_URL: "http://tika.tika.svc.cluster.local:9998"
   # Basic auth credentials for Tika server.
   # Use existing secret and keys in that secret for Tika credentials
   tikaExistingSecret: ""
