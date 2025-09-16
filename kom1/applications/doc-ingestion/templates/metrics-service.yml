@@ -9,8 +9,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      environment: router
-      release: router
+      app.kubernetes.io/instance: doc-ingestion
   namespaceSelector:
     matchNames:
       - doc-ingestion
