@@ -296,6 +296,8 @@ open-webui:
           key: WEBUI_SECRET_KEY
     - name: ENABLE_CODE_INTERPRETER
       value: "false"
+    - name: ENABLE_NOTES
+      value: "false"
 
     # Redis cache
     - name: REDIS_URL
@@ -341,7 +343,14 @@ open-webui:
 
     # Content extraction
     - name: CONTENT_EXTRACTION_ENGINE
-      value: "tika"
+      value: "external"
+    - name: EXTERNAL_DOCUMENT_LOADER_URL
+      value: http://doc-ingestion.doc-ingestion.svc.cluster.local:8000/api/v1
+    - name: EXTERNAL_DOCUMENT_LOADER_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: openwebui-secrets
+          key: EXTERNAL_DOCUMENT_LOADER_API_KEY
     - name: TIKA_SERVER_URL
       value: "http://tika.tika.svc.cluster.local:9998"
 
