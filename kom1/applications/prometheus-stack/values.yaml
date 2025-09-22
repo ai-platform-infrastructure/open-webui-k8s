@@ -148,7 +148,7 @@ prometheus-stack:
             accessModes: ["ReadWriteOnce"]
             resources:
               requests:
-                storage: 50Gi
+                storage: 80Gi
 
   defaultRules:
     rules:

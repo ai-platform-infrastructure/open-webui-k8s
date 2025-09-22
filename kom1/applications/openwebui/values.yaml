@@ -276,9 +276,9 @@ open-webui:
 
     # Basic configuration
     - name: ENABLE_SIGNUP
-      value: "false"
+      value: "False"
     - name: ENABLE_LOGIN_FORM
-      value: "false"
+      value: "False"
     - name: WEBUI_URL
       value: "https://ai.aarhuskommune.dk"
     - name: CORS_ALLOW_ORIGIN
@@ -288,16 +288,16 @@ open-webui:
     - name: DEFAULT_LOCALE
       value: "da-DK"
     - name: ENABLE_EVALUATION_ARENA_MODELS
-      value: "false"
+      value: "False"
     - name: WEBUI_SECRET_KEY
       valueFrom:
         secretKeyRef:
           name: openwebui-secrets
           key: WEBUI_SECRET_KEY
     - name: ENABLE_CODE_INTERPRETER
-      value: "false"
+      value: "False"
     - name: ENABLE_NOTES
-      value: "false"
+      value: "False"
 
     # Redis cache
     - name: REDIS_URL
@@ -305,17 +305,17 @@ open-webui:
 
     # Open telemetry
     - name: ENABLE_OTEL
-      value: "true"
+      value: "True"
     - name: ENABLE_OTEL_METRICS
-      value: "true"
+      value: "True"
     - name: ENABLE_OTEL_TRACES
-      value: "true"
+      value: "True"
     - name: ENABLE_OTEL_LOGS
-      value: "true"
+      value: "True"
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
       value: "alloy.monitoring.svc.cluster.local:4317"
     - name: OTEL_EXPORTER_OTLP_INSECURE
-      value: "true"
+      value: "True"
 
     # OIDC
     - name: OAUTH_EMAIL_CLAIM
@@ -328,6 +328,8 @@ open-webui:
       value: "False"
     - name: OAUTH_ALLOWED_DOMAINS
       value: aarhus.dk
+    - name: JWT_EXPIRES_IN
+      value: "7d"
 
     # Vector store
     - name: VECTOR_DB
