@@ -14,7 +14,7 @@ vllm:
 
         modelURL: "mistralai/Mistral-Small-3.2-24B-Instruct-2506"
 
-        replicaCount: 3
+        replicaCount: 1
 
         requestCPU: 4
         requestMemory: "56Gi"
