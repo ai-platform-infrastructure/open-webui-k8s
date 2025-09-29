@@ -20,8 +20,8 @@ vllm:
         requestMemory: "56Gi"
         requestGPU: 1
 
-        # Temporary workaround for scaling up to more GPU's (currently NFS required to have RWM)
-        # pvcStorage: "200Gi"
+        # Re-enabled: Temporary workaround for scaling up to more GPU's (currently NFS required to have RWM)
+        pvcStorage: "200Gi"
 
         vllmConfig:
           enableChunkedPrefill: true
