@@ -7,7 +7,7 @@ open-webui:
   # -- Open WebUI image tags can be found here: https://github.com/open-webui/open-webui
   image:
     repository: itkdev/openwebui
-    tag: "v0.6.32-3"
+    tag: "v0.6.32-4"
     pullPolicy: "IfNotPresent"
 
   ollama:
