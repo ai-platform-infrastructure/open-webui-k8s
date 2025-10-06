@@ -2,7 +2,7 @@ colibo:
   schedule: "0 * * * *"  # Run every hour by default
 
   image:
-    tag: 0.0.5
+    tag: 0.0.6
 
   resources:
     limits:
