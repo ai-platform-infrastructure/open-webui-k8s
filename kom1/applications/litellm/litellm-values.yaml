@@ -110,6 +110,7 @@ litellm:
           model: openai/mistralai/Mistral-Small-3.2-24B-Instruct-2506
           api_key: os.environ/CA_VLLM_LOCAL_API_KEY
           api_base: http://vllm-router-service.vllm.svc.cluster.local/v1
+          max_tokens: 8192
     general_settings:
       block_robots: true
       disable_error_logs: True
