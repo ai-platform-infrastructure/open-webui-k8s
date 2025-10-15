@@ -83,21 +83,11 @@ alloy:
         
         otelcol.exporter.prometheus "metrics" {
           forward_to = [prometheus.remote_write.default.receiver]
-          add_metric_suffixes = false
-          send_exemplars = false
         }
         
         prometheus.remote_write "default" {
           endpoint {
             url = "http://prometheus-stack-prometheus:9090/api/v1/write"
-          }
-        
-          queue_config {
-            capacity = 10000
-            max_shards = 10
-            min_shards = 1
-            max_samples_per_send = 5000
-            batch_send_deadline = "5s"
           }
         }
 
