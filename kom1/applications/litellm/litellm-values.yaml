@@ -111,11 +111,28 @@ litellm:
           api_key: os.environ/CA_VLLM_LOCAL_API_KEY
           api_base: http://vllm-router-service.vllm.svc.cluster.local/v1
           max_tokens: 8192
+        guardrails:
+          - message_trimming
+
+    guardrails:
+      - guardrail_name: "message_trimming"
+        litellm_params:
+          guardrail: message_overflow.MessageTrimmingGuardrail
+          mode: "pre_call"
+          default_on: true
+        # Optional: default config if not specified per model
+        default_config:
+          trim_ratio: 0.75
+          max_output_tokens: 2000
+          safety_buffer: 500
+          debug: true
+
     general_settings:
       block_robots: true
       disable_error_logs: True
       allow_requests_on_db_unavailable: True
       master_key: os.environ/PROXY_MASTER_KEY
+
     litellm_settings:
       request_timeout: 600
       set_verbose: False
