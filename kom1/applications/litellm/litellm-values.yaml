@@ -205,7 +205,8 @@ litellm:
   # Additional environment variables to be added to the deployment as a map of key-value pairs
   envVars: {
       # USE_DDTRACE: "true"
-      LITELLM_MODE: "PRODUCTION"
+      LITELLM_MODE: "PRODUCTION",
+      LITELLM_LOG: "DEBUG"
   }
 
   # Additional environment variables to be added to the deployment as a list of k8s env vars
