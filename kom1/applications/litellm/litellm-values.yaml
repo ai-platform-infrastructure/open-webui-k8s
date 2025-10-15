@@ -135,7 +135,7 @@ litellm:
 
     litellm_settings:
       request_timeout: 600
-      set_verbose: True
+      set_verbose: False
       json_logs: true
 
   resources: {}
@@ -204,8 +204,7 @@ litellm:
   # Additional environment variables to be added to the deployment as a map of key-value pairs
   envVars: {
       # USE_DDTRACE: "true"
-      LITELLM_MODE: "PRODUCTION",
-      LITELLM_LOG: "DEBUG"
+      LITELLM_MODE: "PRODUCTION"
   }
 
   # Additional environment variables to be added to the deployment as a list of k8s env vars
