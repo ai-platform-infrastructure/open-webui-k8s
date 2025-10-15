@@ -117,7 +117,7 @@ litellm:
     guardrails:
       - guardrail_name: "message_trimming"
         litellm_params:
-          guardrail: message_overflow.MessageTrimmingGuardrail
+          guardrail: /app/custom_guardrails/message_overflow.MessageTrimmingGuardrail
           mode: "pre_call"
           default_on: true
         # Optional: default config if not specified per model
@@ -205,13 +205,11 @@ litellm:
   envVars: {
       # USE_DDTRACE: "true"
       LITELLM_MODE: "PRODUCTION",
-      LITELLM_LOG: "DEBUG",
+      LITELLM_LOG: "DEBUG"
   }
 
   # Additional environment variables to be added to the deployment as a list of k8s env vars
-  extraEnvVars:
-    - name: PYTHONPATH
-      value: "/app:/app/custom_guardrails:${PYTHONPATH}"
+  extraEnvVars: []
 
 
 
