@@ -51,6 +51,10 @@ alloy:
         }
         
         otelcol.processor.batch "default" {
+          timeout = "5s"
+          send_batch_size = 100
+          send_batch_max_size = 200
+        
           output {
             metrics = [otelcol.exporter.prometheus.metrics.input]
             logs    = [otelcol.exporter.loki.logs.input]
@@ -79,11 +83,21 @@ alloy:
         
         otelcol.exporter.prometheus "metrics" {
           forward_to = [prometheus.remote_write.default.receiver]
+          add_metric_suffixes = false
+          send_exemplars = false
         }
         
         prometheus.remote_write "default" {
           endpoint {
             url = "http://prometheus-stack-prometheus:9090/api/v1/write"
+          }
+        
+          queue_config {
+            capacity = 10000
+            max_shards = 10
+            min_shards = 1
+            max_samples_per_send = 5000
+            batch_send_deadline = "5s"
           }
         }
 
@@ -179,7 +193,13 @@ alloy:
     securityContext: {}
 
     # -- Resource requests and limits to apply to the Grafana Alloy container.
-    resources: {}
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "512Mi"
+      limits:
+        cpu: "1000m"
+        memory: "1Gi"
 
     # -- Set lifecycle hooks for the Grafana Alloy container.
     lifecycle: {}
