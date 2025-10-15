@@ -170,7 +170,7 @@ litellm:
   # Additional volumeMounts on the output Deployment definition.
   volumeMounts:
     - name: message-trimming-scripts
-      mountPath: /etc/litellm/message_overflow.py
+      mountPath: /app/custom_guardrails/message_overflow.py
       subPath: message_overflow.py
   # - name: foo
   #   mountPath: "/etc/foo"
@@ -211,7 +211,7 @@ litellm:
   # Additional environment variables to be added to the deployment as a list of k8s env vars
   extraEnvVars:
     - name: PYTHONPATH
-      value: "/app:${PYTHONPATH}"
+      value: "/app:/app/custom_guardrails:${PYTHONPATH}"
 
 
 
