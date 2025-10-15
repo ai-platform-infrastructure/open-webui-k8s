@@ -170,9 +170,8 @@ litellm:
   # Additional volumeMounts on the output Deployment definition.
   volumeMounts:
     - name: message-trimming-scripts
-      mountPath: /app/message_overflow.py
+      mountPath: /etc/litellm/message_overflow.py
       subPath: message_overflow.py
-      readOnly: true
   # - name: foo
   #   mountPath: "/etc/foo"
   #   readOnly: true
