@@ -125,7 +125,7 @@ litellm:
           trim_ratio: 0.75
           max_output_tokens: 2000
           safety_buffer: 500
-          debug: true
+          debug: False
 
     general_settings:
       block_robots: true
@@ -135,7 +135,7 @@ litellm:
 
     litellm_settings:
       request_timeout: 600
-      set_verbose: False
+      set_verbose: True
       json_logs: true
 
   resources: {}
