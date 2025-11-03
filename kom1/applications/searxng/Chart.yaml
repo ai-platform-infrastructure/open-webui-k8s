@@ -1,0 +1,7 @@
+apiVersion: v2
+name: SearXNG
+version: 0.0.4
+dependencies:
+    - name: searxng
+      version: 1.0.0
+      repository: https://itk-dev.github.io/helm-charts
