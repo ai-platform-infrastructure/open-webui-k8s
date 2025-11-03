@@ -34,7 +34,7 @@ searxng:
     port: 8080
 
   persistence:
-    enabled: true
+    enabled: false
 
     # -- Sets the persistence type
     # Valid options are pvc, emptyDir
