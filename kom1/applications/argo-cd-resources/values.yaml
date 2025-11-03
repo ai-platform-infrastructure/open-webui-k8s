@@ -138,3 +138,10 @@ apps:
     automated: true
     valueFiles:
       - values.yaml
+
+  - name: searxng
+    project: searxng
+    namespace: searxng
+    automated: true
+    valueFiles:
+      - values.yaml
