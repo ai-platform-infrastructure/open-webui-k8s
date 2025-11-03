@@ -1,145 +1,146 @@
-replicaCount: 2
+searxng:
+  replicaCount: 2
 
-image:
-  repository: searxng/searxng
-  # -- image tag
-  tag: latest
-  # -- image pull policy
-  pullPolicy: Always
+  image:
+    repository: searxng/searxng
+    # -- image tag
+    tag: latest
+    # -- image pull policy
+    pullPolicy: Always
 
-imagePullSecrets: []
-nameOverride: "searxng"
-fullnameOverride: ""
+  imagePullSecrets: []
+  nameOverride: "searxng"
+  fullnameOverride: ""
 
-# annotations for searxng deployment
-deploymentAnnotations: {}
-# annotations for searxng pods
-podAnnotations: {}
-podLabels: {}
+  # annotations for searxng deployment
+  deploymentAnnotations: {}
+  # annotations for searxng pods
+  podAnnotations: {}
+  podLabels: {}
 
-# Explanation about each environment variables here:
-# https://docs.searxng.org/admin/installation-docker.html#command-line
-env:
-  - name: SEARXNG_SECRET
-    valueFrom:
-      secretKeyRef:
-        name: searxng-secrets
-        key: SEARXNG_SECRET
-  - name: SEARXNG_METHOD
-    value: "POST"
+  # Explanation about each environment variables here:
+  # https://docs.searxng.org/admin/installation-docker.html#command-line
+  env:
+    - name: SEARXNG_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: searxng-secrets
+          key: SEARXNG_SECRET
+    - name: SEARXNG_METHOD
+      value: "POST"
 
-service:
-  type: ClusterIP
-  port: 8080
+  service:
+    type: ClusterIP
+    port: 8080
 
-persistence:
-  enabled: true
+  persistence:
+    enabled: true
 
-  # -- Sets the persistence type
-  # Valid options are pvc, emptyDir
-  type: pvc
+    # -- Sets the persistence type
+    # Valid options are pvc, emptyDir
+    type: pvc
 
-  # -- Storage Class for the config volume.
-  storageClass:  # "-"
+    # -- Storage Class for the config volume.
+    storageClass:  # "-"
 
-  # -- If you want to reuse an existing claim, the name of the existing PVC can be passed here.
-  existingClaim:  # your-claim
+    # -- If you want to reuse an existing claim, the name of the existing PVC can be passed here.
+    existingClaim:  # your-claim
 
-  # -- Used in conjunction with `existingClaim`. Specifies a sub-path inside the referenced volume instead of its root
-  subPath:  # some-subpath
+    # -- Used in conjunction with `existingClaim`. Specifies a sub-path inside the referenced volume instead of its root
+    subPath:  # some-subpath
 
-  # -- AccessMode for the persistent volume.
-  # Make sure to select an access mode that is supported by your storage provider!
-  # [[ref]](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes)
-  accessMode: ReadWriteOnce
+    # -- AccessMode for the persistent volume.
+    # Make sure to select an access mode that is supported by your storage provider!
+    # [[ref]](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes)
+    accessMode: ReadWriteOnce
 
-  # -- The amount of storage that is requested for the persistent volume.
-  size: 1Gi
+    # -- The amount of storage that is requested for the persistent volume.
+    size: 1Gi
 
-  # -- Set to true to retain the PVC upon `helm uninstall`
-  retain: false
+    # -- Set to true to retain the PVC upon `helm uninstall`
+    retain: false
 
-ingress:
-  enabled: false
-  className: "nginx"
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: api.example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  ingress:
+    enabled: false
+    className: "nginx"
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: api.example.local
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
 
-probes:
-  readiness:
-    httpGet:
-      path: /healthz
-      port: 8080
-  liveness:
-    httpGet:
-      path: /healthz
-      port: 8080
-  startup:
-    httpGet:
-      path: /healthz
-      port: 8080
-    failureThreshold: 10
-    periodSeconds: 5
+  probes:
+    readiness:
+      httpGet:
+        path: /healthz
+        port: 8080
+    liveness:
+      httpGet:
+        path: /healthz
+        port: 8080
+    startup:
+      httpGet:
+        path: /healthz
+        port: 8080
+      failureThreshold: 10
+      periodSeconds: 5
 
-# -- Add a Horizontal Pod Autoscaler
-# @default -- <disabled>
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
+  # -- Add a Horizontal Pod Autoscaler
+  # @default -- <disabled>
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
 
-# -- Configure the Security Context for the Pod
-podSecurityContext: {}
+  # -- Configure the Security Context for the Pod
+  podSecurityContext: {}
 
-# -- Configure the Security Context for the main container
-securityContext: {}
+  # -- Configure the Security Context for the main container
+  securityContext: {}
 
-# -- Used in conjunction with `controller.type: statefulset` to create individual disks for each instance.
-volumeClaimTemplates: []
-# - name: data
-#   mountPath: /data
-#   accessMode: "ReadWriteOnce"
-#   size: 1Gi
-# - name: backup
-#   mountPath: /backup
-#   subPath: theSubPath
-#   accessMode: "ReadWriteOnce"
-#   size: 2Gi
-#   storageClass: cheap-storage-class
+  # -- Used in conjunction with `controller.type: statefulset` to create individual disks for each instance.
+  volumeClaimTemplates: []
+  # - name: data
+  #   mountPath: /data
+  #   accessMode: "ReadWriteOnce"
+  #   size: 1Gi
+  # - name: backup
+  #   mountPath: /backup
+  #   subPath: theSubPath
+  #   accessMode: "ReadWriteOnce"
+  #   size: 2Gi
+  #   storageClass: cheap-storage-class
 
-# -- Node selection constraint
-# [[ref]](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
-nodeSelector: {}
+  # -- Node selection constraint
+  # [[ref]](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
+  nodeSelector: {}
 
-# -- Defines affinity constraint rules.
-# [[ref]](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
-affinity: {}
+  # -- Defines affinity constraint rules.
+  # [[ref]](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+  affinity: {}
 
-# -- Specify taint tolerations
-# [[ref]](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
-tolerations: []
+  # -- Specify taint tolerations
+  # [[ref]](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+  tolerations: []
 
-# -- Set the resource requests / limits for the main container.
-resources: {}
-  ## We usually recommend not to specify default resources and to leave this as a conscious
-  ## choice for the user. This also increases chances charts run on environments with little
-  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
-  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  # -- Set the resource requests / limits for the main container.
+  resources: {}
+    ## We usually recommend not to specify default resources and to leave this as a conscious
+    ## choice for the user. This also increases chances charts run on environments with little
+    ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+    ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
