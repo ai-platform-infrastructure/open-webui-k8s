@@ -303,6 +303,10 @@ open-webui:
     - name: REDIS_URL
       value: "redis://open-webui-redis:6379/1"
 
+    # Redis session storage (https://github.com/open-webui/open-webui/pull/17223)
+    - name: ENABLE_STAR_SESSIONS_MIDDLEWARE
+      value: "True"
+
     # Open telemetry
     - name: ENABLE_OTEL
       value: "True"
