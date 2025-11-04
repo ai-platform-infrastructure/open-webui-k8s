@@ -2,7 +2,7 @@ tika:
   affinity: {}
 
   autoscaling:
-    apiVersion: autoscaling/v2beta1
+    apiVersion: autoscaling/v2
     enabled: true
     maxReplicas: 3
     minReplicas: 1
