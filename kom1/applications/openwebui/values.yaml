@@ -399,12 +399,6 @@ open-webui:
           name: openwebui-secrets
           key: TTS_API_KEY
 
-    # Web-search
-    - name: ENABLE_WEB_SEARCH
-      value: "True"
-    - name: WEB_SEARCH_ENGINE
-      value: "duckduckgo"
-
     # Disable direct connections (do not allow users to connect to new servers)
     - name: ENABLE_DIRECT_CONNECTIONS
       value: "False"
@@ -439,13 +433,13 @@ open-webui:
       value: "https://aarhuskommune.service-now.com/serviceportalen?id=kb_article&sysparm_article=KB0014104&topic_id=2241c9afc3a33550f1b565259901312b"
 
     # Web-search
-    - name: ENABLE_RAG_WEB_SEARCH
+    - name: ENABLE_WEB_SEARCH
       value: "True"
-    - name: RAG_WEB_SEARCH_ENGINE
+    - name: WEB_SEARCH_ENGINE
       value: "searxng"
-    - name: RAG_WEB_SEARCH_RESULT_COUNT
+    - name: WEB_SEARCH_RESULT_COUNT
       value: "3"
-    - name: RAG_WEB_SEARCH_CONCURRENT_REQUESTS
+    - name: WEB_SEARCH_CONCURRENT_REQUESTS
       value: "10"
     - name: SEARXNG_QUERY_URL
       value: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
