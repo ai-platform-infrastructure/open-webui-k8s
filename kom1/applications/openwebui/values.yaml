@@ -327,7 +327,7 @@ open-webui:
     - name: ENABLE_OAUTH_ID_TOKEN_COOKIE
       value: "False"
     - name: OAUTH_ALLOWED_DOMAINS
-      value: aarhus.dk
+      value: "aarhus.dk"
     - name: JWT_EXPIRES_IN
       value: "2d"
 
@@ -347,7 +347,7 @@ open-webui:
     - name: CONTENT_EXTRACTION_ENGINE
       value: "external"
     - name: EXTERNAL_DOCUMENT_LOADER_URL
-      value: http://doc-ingestion.doc-ingestion.svc.cluster.local:8000/api/v1
+      value: "http://doc-ingestion.doc-ingestion.svc.cluster.local:8000/api/v1"
     - name: EXTERNAL_DOCUMENT_LOADER_API_KEY
       valueFrom:
         secretKeyRef:
@@ -374,6 +374,8 @@ open-webui:
         secretKeyRef:
           name: openwebui-secrets
           key: RAG_OPENAI_API_KEY
+    - name: RAG_EMBEDDING_BATCH_SIZE
+      value: "64"
 
     # STT (whisper)
     - name: AUDIO_STT_ENGINE
@@ -435,6 +437,18 @@ open-webui:
       value: "https://systemregister.azure.aarhuskommune.dk/AccessOnDemand"
     - name: SYSTEM_REGISTER_GUIDE_URL
       value: "https://aarhuskommune.service-now.com/serviceportalen?id=kb_article&sysparm_article=KB0014104&topic_id=2241c9afc3a33550f1b565259901312b"
+
+    # Web-search
+    - name: ENABLE_RAG_WEB_SEARCH
+      value: "True"
+    - name: RAG_WEB_SEARCH_ENGINE
+      value: "searxng"
+    - name: RAG_WEB_SEARCH_RESULT_COUNT
+      value: "3"
+    - name: RAG_WEB_SEARCH_CONCURRENT_REQUESTS
+      value: "10"
+    - name: SEARXNG_QUERY_URL
+      value: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
 
   # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
   commonEnvVars: []

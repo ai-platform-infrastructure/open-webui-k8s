@@ -3,8 +3,8 @@ tika:
 
   autoscaling:
     apiVersion: autoscaling/v2beta1
-    enabled: false
-    maxReplicas: 100
+    enabled: true
+    maxReplicas: 3
     minReplicas: 1
     targetCPUUtilizationPercentage: 80
     targetMemoryUtilizationPercentage: 80
@@ -17,7 +17,7 @@ tika:
   image:
     pullPolicy: IfNotPresent
     repository: itkdev/tika
-    tag: 3.2.0
+    tag: 3.2.3
   imagePullSecrets: []
 
   ingress:
@@ -66,10 +66,10 @@ tika:
   resources:
     limits:
       cpu: "2"
-      memory: 2000Mi
+      memory: 4000Mi
     requests:
       cpu: "1"
-      memory: 1500Mi
+      memory: 3000Mi
 
   securityContext:
     allowPrivilegeEscalation: true
@@ -91,4 +91,3 @@ tika:
     name: ""
 
   tolerations: []
-
