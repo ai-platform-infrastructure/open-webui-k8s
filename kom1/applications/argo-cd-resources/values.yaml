@@ -118,13 +118,6 @@ apps:
     valueFiles:
       - values.yaml
 
-  - name: docling
-    project: docling
-    namespace: docling
-    automated: true
-    valueFiles:
-      - values.yaml
-
   - name: mbu-colibo
     project: mbu-colibo
     namespace: colibo
