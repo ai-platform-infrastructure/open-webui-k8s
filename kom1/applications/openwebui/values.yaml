@@ -282,7 +282,7 @@ open-webui:
     - name: WEBUI_URL
       value: "https://ai.aarhuskommune.dk"
     - name: CORS_ALLOW_ORIGIN
-      value: "*"
+      value: "https://ai.aarhuskommune.dk"
     - name: USER_AGENT
       value: "AarhusAI"
     - name: DEFAULT_LOCALE
