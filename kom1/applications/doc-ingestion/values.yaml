@@ -6,11 +6,11 @@ doc-ingestion:
   # Image configuration
   image:
     repository: itkdev/doc-ingestion-route
-    tag: "0.0.3"
+    tag: "0.0.4"
     pullPolicy: IfNotPresent
 
   # Replica configuration
-  replicaCount: 1
+  replicaCount: 3
 
   # Service configuration
   service:
@@ -70,10 +70,10 @@ doc-ingestion:
   resources:
     requests:
       memory: "512Mi"
-      cpu: "250m"
+      cpu: "500m"
     limits:
       memory: "2Gi"
-      cpu: "1000m"
+      cpu: "1500m"
 
   # Security context
   securityContext:
