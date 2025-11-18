@@ -419,6 +419,16 @@ open-webui:
     - name: USER_PERMISSIONS_CHAT_IMAGE_CAPTURE
       value: "False"
 
+    # Disable code execution
+    - name: ENABLE_CODE_EXECUTION
+      value: "False"
+    - name: ENABLE_CODE_INTERPRETER
+      value: "False"
+
+    # Follow up
+    - name: ENABLE_FOLLOW_UP_GENERATION
+      value: "False"
+
     # Default prompts
     - name: TITLE_GENERATION_PROMPT_TEMPLATE
       value: "### Opgave:\nGenerér en kort, 3-5 ords titel med en emoji, der opsummerer chat-historikken.\n \n### Retningslinjer:\n- Titlen skal tydeligt repræsentere hovedtemaet eller emnet for samtalen.\n- Brug emojis, der understøtter forståelsen af emnet, men undgå citationstegn eller særlig formatering.\n- Skriv titlen på samtalens primære sprog; brug dansk som standard, hvis sproget er blandet.\n- Prioritér præcision frem for overdreven kreativitet; hold det klart og enkelt.\n- Dit svar skal udelukkende bestå af JSON-objektet, uden indledende eller afsluttende tekst.\n- Output skal være ét enkelt råt JSON-objekt, uden markdown-kodeblokke eller anden indkapsling.\n- Sørg for, at der ikke kommer samtaletekst, bekræftelser eller forklaringer før eller efter JSON-outputtet, da dette vil medføre fejl i parsningen.\n \n### Output:\nJSON-format: { \"title\": \"din korte titel her\" }\n \n### Eksempler:\n- { \"title\": \"📉 Tendens i data\" }\n- { \"title\": \"🍪 Dagens kantinemenu\" }\n- { \"title\": \"Musikstreamingens udvikling\" }\n- { \"title\": \"Tips til hjemmearbejde\" }\n- { \"title\": \"Kunstig intelligens i sundhedsvæsenet\" }\n- { \"title\": \"🎮 Indblik i spiludvikling\" }\n \n### Chat-historik:\n<chat_history>\n{{MESSAGES:END:2}}\n</chat_history>"
