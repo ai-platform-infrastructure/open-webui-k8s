@@ -275,6 +275,8 @@ open-webui:
           key: OPENAI_API_KEY
 
     # Basic configuration
+    - name: ENABLE_PERSISTENT_CONFIG
+      value: "False"
     - name: ENABLE_SIGNUP
       value: "False"
     - name: ENABLE_LOGIN_FORM
@@ -295,7 +297,7 @@ open-webui:
           name: openwebui-secrets
           key: WEBUI_SECRET_KEY
     - name: ENABLE_CODE_INTERPRETER
-      value: "False"
+      value: "True"
     - name: ENABLE_NOTES
       value: "False"
 
@@ -369,6 +371,10 @@ open-webui:
       value: "openai"
     - name: CHUNK_SIZE
       value: "500"
+    - name: CHUNK_OVERLAP
+      value: "100"
+    - name: RAG_TEXT_SPLITTER
+      value: "character"
     - name: RAG_EMBEDDING_MODEL
       value: "intfloat/multilingual-e5-large"
     - name: RAG_OPENAI_API_BASE_URL
@@ -504,6 +510,8 @@ open-webui:
       value: "10"
     - name: SEARXNG_QUERY_URL
       value: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
+    - name: ENABLE_QUERIES_CACHE
+      value: "True"
 
   # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
   commonEnvVars: []
