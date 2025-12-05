@@ -44,6 +44,44 @@ vllm:
                 values:
                   - "true"
 
+      - name: "mistral-2512"
+        repository: "vllm/vllm-openai"
+        tag: "v0.12.0"
+        #repository: "lmcache/vllm-openai"
+        #tag: "2025-05-27-v1"
+
+        modelURL: "mistralai/Ministral-3-14B-Instruct-2512"
+
+        replicaCount: 1
+
+        requestCPU: 4
+        requestMemory: "32Gi"
+        requestGPU: 1
+
+        # Re-enabled: Temporary workaround for scaling up to more GPU's (currently NFS required to have RWM)
+        pvcStorage: "25Gi"
+
+        vllmConfig:
+          enableChunkedPrefill: true
+          enablePrefixCaching: true
+          maxModelLen: 262144
+          extraArgs: ["--tokenizer-mode", "mistral", "--config_format", "mistral", "--load_format", "mistral", "--enable-auto-tool-choice", "--tool-call-parser mistral"]
+
+        lmcacheConfig:
+          enabled: false
+          cpuOffloadingBufferSize: "20"
+
+        hf_token:
+          secretName: "hf-secret"
+          secretKey: "TOKEN"
+
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: nvidia.com/vgpu.present
+                operator: "In"
+                values:
+                  - "true"
+
     vllmApiKey:
       secretName: "vllm-secret"
       secretKey: "KEY"

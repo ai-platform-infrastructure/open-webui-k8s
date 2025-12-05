@@ -113,6 +113,14 @@ litellm:
           max_tokens: 8192
         guardrails:
           - message_trimming
+      - model_name: Mistral-14b
+        litellm_params:
+          model: openai/mistralai/Ministral-3-14B-Instruct-2512
+          api_key: os.environ/CA_VLLM_LOCAL_API_KEY
+          api_base: http://vllm-router-service.vllm.svc.cluster.local/v1
+          max_tokens: 16384
+#        guardrails:
+#          - message_trimming
 
     guardrails:
       - guardrail_name: "message_trimming"
