@@ -119,8 +119,34 @@ litellm:
           api_key: os.environ/CA_VLLM_LOCAL_API_KEY
           api_base: http://vllm-router-service.vllm.svc.cluster.local/v1
           max_tokens: 16384
-#        guardrails:
-#          - message_trimming
+        guardrails:
+          - message_trimming
+
+      ## BA
+      - model_name: BA-gpt-oss-120b
+        litellm_params:
+          model: azure_ai/gpt-5.1-chat
+          api_base: https://aak-ai-resource.services.ai.azure.com
+          api_key: os.environ/CA_AZURE_BA_API_KEY
+          api_version: "2024-05-01-preview"
+      - model_name: BA-llama-4-scout-17b-16e-instruct
+        litellm_params:
+          model: azure_ai/llama-4-scout-17b-16e-instruct
+          api_base: https://aak-ai-resource.services.ai.azure.com
+          api_key: os.environ/CA_AZURE_BA_API_KEY
+          api_version: "2024-05-01-preview"
+      - model_name: BA-gpt-5.1-chat
+        litellm_params:
+          model: azure_ai/gpt-5.1-chat
+          api_base: https://aak-ai-resource.services.ai.azure.com
+          api_key: os.environ/CA_AZURE_BA_API_KEY
+          api_version: "2024-05-01-preview"
+      - model_name: BA-grok-4-fast-non-reasoning
+        litellm_params:
+          model: azure_ai/grok-4-fast-non-reasoning
+          api_base: https://aak-ai-resource.services.ai.azure.com
+          api_key: os.environ/CA_AZURE_BA_API_KEY
+          api_version: "2024-05-01-preview"
 
     guardrails:
       - guardrail_name: "message_trimming"
