@@ -144,7 +144,7 @@ qdrant:
 
   persistence:
     accessModes: ["ReadWriteOnce"]
-    size: 10Gi
+    size: 20Gi
     annotations: {}
     # storageVolumeName: qdrant-storage
     # storageSubPath: ""
