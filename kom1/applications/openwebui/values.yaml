@@ -296,8 +296,6 @@ open-webui:
         secretKeyRef:
           name: openwebui-secrets
           key: WEBUI_SECRET_KEY
-    - name: ENABLE_CODE_INTERPRETER
-      value: "True"
     - name: ENABLE_NOTES
       value: "False"
 
@@ -431,7 +429,7 @@ open-webui:
     - name: ENABLE_CODE_EXECUTION
       value: "False"
     - name: ENABLE_CODE_INTERPRETER
-      value: "False"
+      value: "True"
 
     # Follow up
     - name: ENABLE_FOLLOW_UP_GENERATION
