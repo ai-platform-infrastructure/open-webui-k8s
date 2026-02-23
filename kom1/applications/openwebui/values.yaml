@@ -336,6 +336,8 @@ open-webui:
       value: "aarhus.dk"
     - name: JWT_EXPIRES_IN
       value: "2d"
+    - name: AAK_OAUTH_ENABLE_ROLE_GROUPS_MAPPING
+      value: "True"
 
     # Vector store
     - name: VECTOR_DB
