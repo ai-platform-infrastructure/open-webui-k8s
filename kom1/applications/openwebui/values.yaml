@@ -324,8 +324,6 @@ open-webui:
     # OIDC
     - name: OAUTH_EMAIL_CLAIM
       value: "upn"
-    - name: ENABLE_OAUTH_GROUP_MANAGEMENT
-      value: "True"
     - name: ENABLE_OAUTH_GROUP_CREATION
       value: "True"
     - name: ENABLE_OAUTH_ID_TOKEN_COOKIE
