@@ -106,6 +106,8 @@ apps:
     project: openwebui
     namespace: openwebui
     automated: true
+    syncOptions:
+      - ServerSideApply=true
     valueFiles:
       - cloudnative-pg-values.yaml
       - qdrant-values.yaml
