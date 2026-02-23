@@ -2,7 +2,7 @@ open-webui:
   nameOverride: ""
   namespaceOverride: ""
 
-  replicaCount: 1
+  replicaCount: 3
 
   # -- Open WebUI image tags can be found here: https://github.com/open-webui/open-webui
   image:
@@ -665,7 +665,7 @@ open-webui:
   logging:
     # -- Set the global log level ["notset", "debug", "info" (default), "warning", "error", "critical"]
     # @section -- Logging configuration
-    level: "debug"
+    level: "info"
 
     # Optional granularity: override log levels per subsystem/component
     # if not set, it will use the global level (see. https://docs.openwebui.com/getting-started/advanced-topics/logging#%EF%B8%8F-appbackend-specific-logging-levels)
