@@ -2,7 +2,7 @@ open-webui:
   nameOverride: ""
   namespaceOverride: ""
 
-  replicaCount: 1
+  replicaCount: 3
 
   # -- Open WebUI image tags can be found here: https://github.com/open-webui/open-webui
   image:
