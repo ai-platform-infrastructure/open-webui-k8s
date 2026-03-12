@@ -128,7 +128,7 @@ litellm:
           model: azure_ai/gpt-5-mini
           api_base: https://aarhusai.cognitiveservices.azure.com/
           api_key: os.environ/CA_AZURE_BA_API_KEY
-          api_version: "2024-12-01-preview"
+          api_version: "2025-04-01-preview"
 
     guardrails:
       - guardrail_name: "message_trimming"
