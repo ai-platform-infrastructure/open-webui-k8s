@@ -123,9 +123,29 @@ litellm:
           api_base: https://aak-ai-resource.services.ai.azure.com
           api_key: os.environ/CA_AZURE_BA_API_KEY
           api_version: "2024-05-01-preview"
+
+      # MKB
       - model_name: MKB-gpt-5-mini
         litellm_params:
           model: azure_ai/gpt-5-mini
+          api_base: https://aarhusai.cognitiveservices.azure.com/
+          api_key: os.environ/CA_AZURE_MKB_API_KEY
+          api_version: "2025-04-01-preview"
+      - model_name: MKB-gpt-5-nano
+        litellm_params:
+          model: azure_ai/gpt-5-nano
+          api_base: https://aarhusai.cognitiveservices.azure.com/
+          api_key: os.environ/CA_AZURE_MKB_API_KEY
+          api_version: "2025-04-01-preview"
+      - model_name: MKB-o4-mini
+        litellm_params:
+          model: azure_ai/o4-mini
+          api_base: https://aarhusai.cognitiveservices.azure.com/
+          api_key: os.environ/CA_AZURE_MKB_API_KEY
+          api_version: "2025-04-01-preview"
+      - model_name: Mistral-Large-3
+        litellm_params:
+          model: azure_ai/Mistral-Large-3
           api_base: https://aarhusai.cognitiveservices.azure.com/
           api_key: os.environ/CA_AZURE_MKB_API_KEY
           api_version: "2025-04-01-preview"
