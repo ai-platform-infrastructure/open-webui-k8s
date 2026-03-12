@@ -143,7 +143,7 @@ litellm:
           api_base: https://aarhusai.cognitiveservices.azure.com/
           api_key: os.environ/CA_AZURE_MKB_API_KEY
           api_version: "2025-04-01-preview"
-      - model_name: Mistral-Large-3
+      - model_name: MKB-Mistral-Large-3
         litellm_params:
           model: azure_ai/Mistral-Large-3
           api_base: https://aarhusai.cognitiveservices.azure.com/
