@@ -137,6 +137,12 @@ litellm:
           api_base: https://aarhusai.cognitiveservices.azure.com/
           api_key: os.environ/CA_AZURE_MKB_API_KEY
           api_version: "2025-04-01-preview"
+      - model_name: MKB-gpt-4.1-nano
+        litellm_params:
+          model: azure_ai/gpt-4.1-nano
+          api_base: https://aarhusai.cognitiveservices.azure.com/
+          api_key: os.environ/CA_AZURE_MKB_API_KEY
+          api_version: "2025-04-01-preview"
       - model_name: MKB-o4-mini
         litellm_params:
           model: azure_ai/o4-mini
