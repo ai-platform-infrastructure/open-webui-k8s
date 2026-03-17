@@ -301,6 +301,10 @@ open-webui:
     - name: DEFAULT_GROUP_SHARE_PERMISSION
       value: "members"
 
+    # Admin
+    - name: ENABLE_ADMIN_CHAT_ACCESS
+      value: "False"
+
     # Redis cache
     - name: REDIS_URL
       value: "redis://open-webui-redis:6379/1"
