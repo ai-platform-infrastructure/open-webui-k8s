@@ -376,11 +376,11 @@ open-webui:
     - name: RAG_EMBEDDING_ENGINE
       value: "openai"
     - name: CHUNK_SIZE
-      value: "500"
+      value: "440"
     - name: CHUNK_OVERLAP
       value: "100"
     - name: RAG_TEXT_SPLITTER
-      value: "character"
+      value: "token"
     - name: RAG_EMBEDDING_MODEL
       value: "intfloat/multilingual-e5-large"
     - name: RAG_OPENAI_API_BASE_URL
