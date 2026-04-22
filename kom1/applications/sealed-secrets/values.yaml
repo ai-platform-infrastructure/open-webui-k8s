@@ -40,7 +40,7 @@ sealed-secrets:
   image:
     registry: docker.io
     repository: bitnami/sealed-secrets-controller
-    tag: 0.30.0
+    tag: 0.33.1
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -116,6 +116,9 @@ sealed-secrets:
   ## @param maxRetries Number of maximum retries
   ##
   maxRetries: ""
+  ## @param watchForSecrets Specifies whether the Sealed Secrets controller will watch for new secrets
+  ##
+  watchForSecrets: false
   ## @param command Override default container command
   ##
   command: []
@@ -293,7 +296,7 @@ sealed-secrets:
   ingress:
     ## @param ingress.enabled Enable ingress record generation for Sealed Secret
     ##
-    enabled: true
+    enabled: false
     ## @param ingress.pathType Ingress path type
     ##
     pathType: ImplementationSpecific
@@ -307,7 +310,7 @@ sealed-secrets:
     ingressClassName: traefik
     ## @param ingress.hostname Default host for the ingress record
     ##
-    hostname: sealed-secrets.kom1.deranged.dk
+    hostname: itkdev@ba.itkdev.dk
     ## @param ingress.path Default path for the ingress record
     ##
     path: /v1/cert.pem
