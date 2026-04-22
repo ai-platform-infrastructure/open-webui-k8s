@@ -16,7 +16,7 @@ tika:
 
   image:
     pullPolicy: IfNotPresent
-    repository: itkdev/tika
+    repository: ghcr.io/aarhusai/tika
     tag: latest
   imagePullSecrets: []
 
