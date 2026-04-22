@@ -17,7 +17,7 @@ tika:
   image:
     pullPolicy: IfNotPresent
     repository: itkdev/tika
-    tag: 3.2.3
+    tag: latest
   imagePullSecrets: []
 
   ingress:
