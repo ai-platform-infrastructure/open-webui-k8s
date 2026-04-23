@@ -165,10 +165,10 @@ litellm:
           api_version: "2025-04-01-preview"
       - model_name: MSB-Mistral-Large-3
         litellm_params:
-          model: azure_ai/gpt-4.1-nano
-          api_base: https://msb-aarhusai.cognitiveservices.azure.com/
+          model: azure_ai/Mistral-Large-3
+          api_base: https://msb-aarhusai.services.ai.azure.com/
           api_key: os.environ/CA_AZURE_MSB_API_KEY
-          api_version: "2025-04-01-preview"
+          #api_version: "2025-04-01-preview"
 
     guardrails:
       - guardrail_name: "message_trimming"
