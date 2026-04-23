@@ -150,6 +150,26 @@ litellm:
           api_key: os.environ/CA_AZURE_MKB_API_KEY
           api_version: "2025-04-01-preview"
 
+      # MSB
+      - model_name: MSB-gpt-5-mini
+        litellm_params:
+          model: azure_ai/gpt-5-mini
+          api_base: https://msb-aarhusai.cognitiveservices.azure.com/
+          api_key: os.environ/CA_AZURE_MSB_API_KEY
+          api_version: "2025-04-01-preview"
+      - model_name: MSB-gpt-5-nano
+        litellm_params:
+          model: azure_ai/gpt-5-nano
+          api_base: https://msb-aarhusai.cognitiveservices.azure.com/
+          api_key: os.environ/CA_AZURE_MSB_API_KEY
+          api_version: "2025-04-01-preview"
+      - model_name: MSB-Mistral-Large-3
+        litellm_params:
+          model: azure_ai/gpt-4.1-nano
+          api_base: https://msb-aarhusai.cognitiveservices.azure.com/
+          api_key: os.environ/CA_AZURE_MSB_API_KEY
+          api_version: "2025-04-01-preview"
+
     guardrails:
       - guardrail_name: "message_trimming"
         litellm_params:
