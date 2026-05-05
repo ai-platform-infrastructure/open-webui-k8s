@@ -40,11 +40,17 @@ spec:
             - name: http
               containerPort: 8001
               protocol: TCP
+          env:
+            - name: UV_CACHE_DIR
+              value: /tmp/uv-cache
           envFrom:
             - configMapRef:
                 name: search-agent-env
             - secretRef:
                 name: search-agent-secrets
+          volumeMounts:
+            - name: uv-cache
+              mountPath: /tmp/uv-cache
           readinessProbe:
             httpGet:
               path: /health
@@ -69,3 +75,6 @@ spec:
             capabilities:
               drop:
                 - ALL
+      volumes:
+        - name: uv-cache
+          emptyDir: {}
