@@ -7,7 +7,7 @@ open-webui:
   # -- Open WebUI image tags can be found here: https://github.com/open-webui/open-webui
   image:
     repository: itkdev/openwebui
-    tag: "v0.8.10-4"
+    tag: "v0.8.12-4"
     pullPolicy: "IfNotPresent"
 
   ollama:
@@ -302,6 +302,13 @@ open-webui:
       value: "members"
 
     # Admin
+    - name: WEBUI_ADMIN_EMAIL
+      value: itkdev@ba.aarhus.dk
+    - name: WEBUI_ADMIN_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: openwebui-secrets
+          key: WEBUI_ADMIN_PASSWORD
     - name: ENABLE_ADMIN_CHAT_ACCESS
       value: "False"
 
@@ -421,15 +428,24 @@ open-webui:
     # User profile notification webhooks
     - name: ENABLE_USER_WEBHOOKS
       value: "False"
-    # Disable api key generation (in user profile)
-    - name: ENABLE_API_KEY
-      value: "False"
     # Sharing
     - name: ENABLE_COMMUNITY_SHARING
       value: "False"
     # Disable screen capture
     - name: USER_PERMISSIONS_CHAT_IMAGE_CAPTURE
       value: "False"
+
+    # API key generation
+    - name: ENABLE_API_KEY
+      value: "true"
+    - name: ENABLE_API_KEYS_ENDPOINT_RESTRICTIONS
+      value: "True"
+    - name: API_KEYS_ALLOWED_ENDPOINTS
+      value: "/api/v1/retrieval/,/api/v1/auths/,/api/v1/models,/api/models,/api/v1/models/base,/api/models/base,/api/chat/completions,/api/v1/chat/completions,/health"
+
+    # Tools configuration
+    - name: TOOL_SERVER_CONNECTIONS
+      value: '[{"type":"mcp","url":"http://search-agent.search-agent.svc.cluster.local:8001/mcp","spec_type":"url","spec":"","path":"openapi.json","auth_type":"none","key":"","config":{"enable":true},"info":{"id":"websearch","name":"websearch","description":"Search the internet"}}]'
 
     # Disable code execution
     - name: ENABLE_CODE_EXECUTION
