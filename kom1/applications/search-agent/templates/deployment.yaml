@@ -27,30 +27,15 @@ spec:
         - name: search-agent
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["uv"]
-          args:
-            - run
-            - uvicorn
-            - search_agent.main:app
-            - --host
-            - 0.0.0.0
-            - --port
-            - "8001"
           ports:
             - name: http
               containerPort: 8001
               protocol: TCP
-          env:
-            - name: UV_CACHE_DIR
-              value: /tmp/uv-cache
           envFrom:
             - configMapRef:
                 name: search-agent-env
             - secretRef:
                 name: search-agent-secrets
-          volumeMounts:
-            - name: uv-cache
-              mountPath: /tmp/uv-cache
           readinessProbe:
             httpGet:
               path: /health
@@ -75,6 +60,3 @@ spec:
             capabilities:
               drop:
                 - ALL
-      volumes:
-        - name: uv-cache
-          emptyDir: {}
