@@ -20,6 +20,11 @@ spec:
         app.kubernetes.io/name: redis
         app.kubernetes.io/instance: search-agent-redis
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
         - name: redis
           image: {{ .Values.redis.image }}
@@ -41,9 +46,15 @@ spec:
             periodSeconds: 20
           resources:
             {{- toYaml .Values.redis.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
+      volumes:
+        - name: data
+          emptyDir: {}
