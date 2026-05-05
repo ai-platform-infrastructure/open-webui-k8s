@@ -56,3 +56,9 @@ vllm:
     repository: "lmcache/lmstack-router"
     tag: "latest"
     imagePullPolicy: "Always"
+    resources:
+      requests:
+        cpu: 400m
+        memory: 1Gi
+      limits:
+        memory: 2Gi
