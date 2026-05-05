@@ -133,3 +133,10 @@ apps:
     automated: true
     valueFiles:
       - values.yaml
+
+  - name: search-agent
+    project: search-agent
+    namespace: search-agent
+    automated: true
+    valueFiles:
+      - values.yaml
