@@ -445,7 +445,7 @@ open-webui:
 
     # Tools configuration
     - name: TOOL_SERVER_CONNECTIONS
-      value: '[{"type":"mcp","url":"http://search-agent.search-agent.svc.cluster.local:8001/mcp","spec_type":"url","spec":"","path":"openapi.json","auth_type":"none","key":"","config":{"enable":true},"info":{"id":"websearch","name":"websearch","description":"Search the internet"}}]'
+      value: '[{"type":"mcp","url":"http://search-agent.search-agent.svc.cluster.local:8001/mcp","spec_type":"url","spec":"","path":"openapi.json","auth_type":"none","key":"","config":{"enable":true,"access_grants":[{"principal_type":"user","principal_id":"*","permission":"read"}]},"info":{"id":"websearch","name":"websearch","description":"Search the internet"}}]'
 
     # Disable code execution
     - name: ENABLE_CODE_EXECUTION
