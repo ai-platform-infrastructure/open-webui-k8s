@@ -243,10 +243,10 @@ open-webui:
   enableOpenaiApi: true
 
   # -- OpenAI base API URL to use. Defaults to the Pipelines service endpoint when Pipelines are enabled, and "https://api.openai.com/v1" if Pipelines are not enabled and this value is blank
-  openaiBaseApiUrl: "http://litellm.litellm.svc.cluster.local:4000/v1"
+  openaiBaseApiUrl: ""
 
   # -- OpenAI base API URLs to use. Overwrites the value in openaiBaseApiUrl if set
-  openaiBaseApiUrls: []
+  openaiBaseApiUrls: [http://litellm.litellm.svc.cluster.local:4000/v1,https://litellm.itkdev.dk/v1]
 
   # -- Configure database URL.
   #
@@ -268,11 +268,11 @@ open-webui:
           key: password
     - name: DATABASE_URL
       value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@cloudnative-pg-cluster-rw:5432/openwebui"
-    - name: OPENAI_API_KEY
+    - name: OPENAI_API_KEYS
       valueFrom:
         secretKeyRef:
           name: openwebui-secrets
-          key: OPENAI_API_KEY
+          key: OPENAI_API_KEYS
 
     # Basic configuration
     - name: ENABLE_PERSISTENT_CONFIG
