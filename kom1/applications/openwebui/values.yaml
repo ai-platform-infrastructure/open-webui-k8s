@@ -436,7 +436,7 @@ open-webui:
       value: "False"
 
     # API key generation
-    - name: ENABLE_API_KEY
+    - name: ENABLE_API_KEYS
       value: "True"
     - name: ENABLE_API_KEYS_ENDPOINT_RESTRICTIONS
       value: "True"
