@@ -170,6 +170,14 @@ litellm:
           api_key: os.environ/CA_AZURE_MSB_API_KEY
           #api_version: "2025-04-01-preview"
 
+      # MTM
+      - model_name: MTM-gpt-5.4
+        litellm_params:
+          model: azure_ai/gpt-5.4
+          api_base: https://aarhus-ai-azure-openai-mtm.openai.azure.com/
+          api_key: os.environ/CA_AZURE_MTM_API_KEY
+          api_version: "2025-04-01-preview"
+
     guardrails:
       - guardrail_name: "message_trimming"
         litellm_params:
