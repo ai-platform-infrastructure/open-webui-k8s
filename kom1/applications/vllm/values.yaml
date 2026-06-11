@@ -47,7 +47,7 @@ vllm:
               operator: "In"
               values:
                 # Send this to the large GPU node
-                - GRID-A100D-80C
+                - NVIDIA-A100-80GB-PCIe
 
     vllmApiKey:
       secretName: "vllm-secret"
