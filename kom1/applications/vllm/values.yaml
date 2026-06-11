@@ -39,10 +39,6 @@ vllm:
 
         nodeSelectorTerms:
           - matchExpressions:
-            - key: nvidia.com/vgpu.present
-              operator: "In"
-              values:
-                - "true"
             - key: nvidia.com/gpu.product
               operator: "In"
               values:
