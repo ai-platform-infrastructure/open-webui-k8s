@@ -7,7 +7,7 @@ open-webui:
   # -- Open WebUI image tags can be found here: https://github.com/open-webui/open-webui
   image:
     repository: itkdev/openwebui
-    tag: "v0.8.12-4"
+    tag: "v0.9.6-3"
     pullPolicy: "IfNotPresent"
 
   ollama:
@@ -300,10 +300,12 @@ open-webui:
       value: "False"
     - name: DEFAULT_GROUP_SHARE_PERMISSION
       value: "members"
+    - name: DEFAULT_MODEL_PARAMS
+      value: '{"function_calling": "native"}'
 
     # Admin
     - name: WEBUI_ADMIN_EMAIL
-      value: itkdev@ba.aarhus.dk
+      value: "itkdev@ba.aarhus.dk"
     - name: WEBUI_ADMIN_PASSWORD
       valueFrom:
         secretKeyRef:
@@ -362,19 +364,6 @@ open-webui:
     - name: ENABLE_QDRANT_MULTITENANCY_MODE
       value: "True"
 
-    # Content extraction
-    - name: CONTENT_EXTRACTION_ENGINE
-      value: "external"
-    - name: EXTERNAL_DOCUMENT_LOADER_URL
-      value: "http://doc-ingestion.doc-ingestion.svc.cluster.local:8000/api/v1"
-    - name: EXTERNAL_DOCUMENT_LOADER_API_KEY
-      valueFrom:
-        secretKeyRef:
-          name: openwebui-secrets
-          key: EXTERNAL_DOCUMENT_LOADER_API_KEY
-    - name: TIKA_SERVER_URL
-      value: "http://tika.tika.svc.cluster.local:9998"
-
     # S3
     - name: S3_USE_SSL
       value: "False"
@@ -399,6 +388,36 @@ open-webui:
           key: RAG_OPENAI_API_KEY
     - name: RAG_EMBEDDING_BATCH_SIZE
       value: "64"
+
+    # External RAG
+    - name: RAG_RETRIEVAL_ENGINE
+      value: "external"
+    - name: RAG_EXTERNAL_RETRIEVAL_URL
+      value: "http://retrieval-agent.retrieval-agent.svc.cluster.local:8000/"
+    - name: RAG_EXTERNAL_BYPASS_QUERY_GENERATION
+      value: "true"
+    - name: RAG_EXTERNAL_MESSAGE_COUNT
+      value: "2"
+    - name: RAG_EXTERNAL_USER_MESSAGES_ONLY
+      value: "true"
+    - name: RAG_EXTERNAL_RETRIEVAL_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: openwebui-secrets
+          key: RAG_EXTERNAL_RETRIEVAL_API_KEY
+
+    # External ingestion
+    - name: EXTERNAL_INGESTION_ENGINE
+      value: "external"
+    - name: EXTERNAL_INGESTION_URL
+      value: "http://ingestion-service.ingestion-service.svc.cluster.local:8000"
+    - name: EXTERNAL_INGESTION_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: openwebui-secrets
+          key: EXTERNAL_INGESTION_API_KEY
+    - name: EXTERNAL_INGESTION_TIMEOUT
+      value: "300"
 
     # STT (whisper)
     - name: AUDIO_STT_ENGINE
