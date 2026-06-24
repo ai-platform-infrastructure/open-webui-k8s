@@ -1,0 +1,19 @@
+{{- if .Values.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: retrieval-agent-model-cache
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: retrieval-agent
+    app.kubernetes.io/instance: retrieval-agent
+spec:
+  accessModes:
+    {{- toYaml .Values.persistence.accessModes | nindent 4 }}
+  {{- with .Values.persistence.storageClassName }}
+  storageClassName: {{ . }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size }}
+{{- end }}

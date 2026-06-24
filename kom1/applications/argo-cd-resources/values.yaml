@@ -154,3 +154,10 @@ apps:
     automated: true
     valueFiles:
       - values.yaml
+
+  - name: retrieval-agent
+    project: retrieval-agent
+    namespace: retrieval-agent
+    automated: true
+    valueFiles:
+      - values.yaml

@@ -26,11 +26,11 @@ containerPort: 8000
 
 resources:
   requests:
-    cpu: 500m
-    memory: 512Mi
+    cpu: "1"
+    memory: 2Gi
   limits:
     cpu: "2"
-    memory: 2Gi
+    memory: 4Gi
 
 # /health is polled by both probes; mirrors the compose healthcheck.
 probes:
