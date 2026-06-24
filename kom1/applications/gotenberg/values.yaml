@@ -30,8 +30,14 @@ probes:
   path: /health
   startupSeconds: 20
 
+# The gotenberg image's USER is the name "gotenberg" (not a numeric UID), so the
+# kubelet can't verify non-root from the image alone. Pin the numeric UID/GID
+# (gotenberg user is 1001:1001) so runAsNonRoot admission succeeds.
 podSecurityContext:
   runAsNonRoot: true
+  runAsUser: 1001
+  runAsGroup: 1001
+  fsGroup: 1001
 
 securityContext:
   allowPrivilegeEscalation: false
