@@ -37,8 +37,14 @@ probes:
   path: /health
   startupSeconds: 30
 
+# The kreuzberg image's USER is the name "kreuzberg" (not a numeric UID), so the
+# kubelet can't verify non-root from the image alone. Pin the numeric UID/GID
+# (kreuzberg user is 999:999) so runAsNonRoot admission succeeds.
 podSecurityContext:
   runAsNonRoot: true
+  runAsUser: 999
+  runAsGroup: 999
+  fsGroup: 999
 
 securityContext:
   allowPrivilegeEscalation: false
