@@ -1,0 +1,5 @@
+apiVersion: v2
+name: kreuzberg
+description: Kreuzberg document text-extraction service
+version: 0.0.1
+appVersion: "4.0.7"

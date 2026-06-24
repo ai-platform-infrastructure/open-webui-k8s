@@ -1,0 +1,45 @@
+replicaCount: 1
+
+image:
+  repository: gotenberg/gotenberg
+  tag: "8"
+  pullPolicy: IfNotPresent
+
+# Locked-down Chromium: no JS, only allowed to read files under /tmp.
+command:
+  - gotenberg
+  - "--chromium-disable-javascript=true"
+  - "--chromium-allow-list=file:///tmp/.*"
+
+service:
+  type: ClusterIP
+  port: 3000
+
+containerPort: 3000
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: "2"
+    memory: 2Gi
+
+# /health is polled by both probes; mirrors the compose healthcheck.
+probes:
+  path: /health
+  startupSeconds: 20
+
+podSecurityContext:
+  runAsNonRoot: true
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

@@ -95,6 +95,20 @@ apps:
     valueFiles:
       - values.yaml
 
+  - name: kreuzberg
+    project: kreuzberg
+    namespace: kreuzberg
+    automated: true
+    valueFiles:
+      - values.yaml
+
+  - name: gotenberg
+    project: gotenberg
+    namespace: gotenberg
+    automated: true
+    valueFiles:
+      - values.yaml
+
   - name: doc-ingestion
     project: doc-ingestion
     namespace: doc-ingestion

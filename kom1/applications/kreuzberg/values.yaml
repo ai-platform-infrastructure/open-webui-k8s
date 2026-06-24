@@ -1,0 +1,52 @@
+replicaCount: 1
+
+image:
+  repository: goldziher/kreuzberg
+  tag: "4.0.7-core"
+  pullPolicy: IfNotPresent
+
+# Container entrypoint args (kept identical to the upstream compose example).
+command:
+  - serve
+  - -H
+  - 0.0.0.0
+  - -p
+  - "8000"
+
+# Per-request + extraction tracing. Use `info` (default) for quiet,
+# `debug` for one line per request, `trace` for very chatty internals.
+env:
+  RUST_LOG: "kreuzberg=debug,tower_http=debug,axum=info"
+
+service:
+  type: ClusterIP
+  port: 8000
+
+containerPort: 8000
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: "2"
+    memory: 2Gi
+
+# /health is polled by both probes; mirrors the compose healthcheck.
+probes:
+  path: /health
+  startupSeconds: 30
+
+podSecurityContext:
+  runAsNonRoot: true
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
