@@ -1,0 +1,88 @@
+image:
+  repository: ghcr.io/aarhusai/retrieval-agent
+  tag: "latest"
+  pullPolicy: Always
+
+replicaCount: 1
+
+service:
+  port: 8000
+
+containerPort: 8000
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    cpu: "2"
+    memory: 2Gi
+
+# Persistent cache for HF + fastembed models (the ~80 MB BM42 sparse model).
+# Mirrors the `retrieval_model_cache` named volume from compose so the model
+# survives pod restarts instead of re-downloading on every cold start.
+persistence:
+  enabled: true
+  size: 2Gi
+  # storageClassName: ""  # uses the cluster default when empty
+  accessModes:
+    - ReadWriteOnce
+
+# Non-secret configuration. Rendered into the retrieval-agent-env ConfigMap.
+# Secret values (API_KEY, AGENT_API_KEY, QDRANT_API_KEY, EMBEDDING_API_KEY)
+# live in the retrieval-agent-secrets sealed secret.
+env:
+  # Logging / observability
+  LOG_LEVEL: "INFO"
+  LOG_LEVEL_APP: "INFO"
+  LOG_FORMAT: "text"
+  METRICS_ENABLED: "true"
+
+  # Agentic RAG
+  ENABLE_AGENTIC_RAG: "true"
+  AGENT_MODEL: "AarhusAI-default-v2"
+  AGENT_API_BASE_URL: "https://litellm.itkdev.dk/v1"
+  AGENT_MAX_ITERATIONS: "3"
+  INITIAL_RETRIEVAL_MULTIPLIER: "3"
+  AGENT_FETCH_K: "20"
+  AGENT_PREVIEW_K: "5"
+  AGENT_CONVERSATION_HISTORY_MESSAGES: "4"
+  AGENT_TOOL_PREVIEW_CHARS: "200"
+  AGENT_STRICT_TOOLS: "true"
+  AGENT_TIMEOUT: "60"
+  AGENT_SYSTEM_PROMPT: ""
+
+  # Query generation (linear pipeline). Empty template falls back to the built-in prompt.
+  ENABLE_QUERY_GENERATION: "true"
+  RETRIEVAL_QUERY_GENERATION_PROMPT_TEMPLATE: ""
+
+  # Qdrant. Single physical collection shared with the ingestion service via
+  # QDRANT_INDEX; both must point at the same collection.
+  QDRANT_URI: "http://openwebui-qdrant.openwebui.svc.cluster.local:6333"
+  QDRANT_INDEX: "ingestion_files"
+
+  # Embedding settings (must match the ones used by ingestion).
+  EMBEDDING_MODEL: "intfloat/multilingual-e5-large"
+  EMBEDDING_API_BASE_URL: "https://embed.itkdev.dk/v1"
+  # e5 wants "query: " on queries, "passage: " on docs; must match ingestion.
+  EMBEDDING_PREFIX_QUERY: "query: "
+
+  # Hybrid search
+  ENABLE_HYBRID_SEARCH: "true"
+  HYBRID_BM25_WEIGHT: "0.3"
+  # Client-side BM25 fallback cache TTL (used only when the collection has no text-sparse vector).
+  BM25_CACHE_TTL_SECONDS: "300"
+  # Sparse query stage (native server-side hybrid). Model must match the sparse
+  # model the ingestion service indexed with. provider=none forces dense-only.
+  SPARSE_QUERY_PROVIDER: "fastembed"
+  SPARSE_QUERY_MODEL: "Qdrant/bm42-all-minilm-l6-v2-attentions"
+
+  # Reranking
+  ENABLE_RERANKING: "true"
+  RERANKER_MODEL: "BAAI/bge-reranker-v2-m3"
+  RERANKER_API_BASE_URL: "https://embed.itkdev.dk/rerank"
+
+  # Container user has no writable $HOME, so point HF + fastembed caches under
+  # /cache, backed by the persistent volume above.
+  HF_HOME: "/cache/hf"
+  FASTEMBED_CACHE_PATH: "/cache/fastembed"

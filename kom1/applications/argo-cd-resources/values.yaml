@@ -95,6 +95,20 @@ apps:
     valueFiles:
       - values.yaml
 
+  - name: kreuzberg
+    project: kreuzberg
+    namespace: kreuzberg
+    automated: true
+    valueFiles:
+      - values.yaml
+
+  - name: gotenberg
+    project: gotenberg
+    namespace: gotenberg
+    automated: true
+    valueFiles:
+      - values.yaml
+
   - name: doc-ingestion
     project: doc-ingestion
     namespace: doc-ingestion
@@ -137,6 +151,20 @@ apps:
   - name: search-agent
     project: search-agent
     namespace: search-agent
+    automated: true
+    valueFiles:
+      - values.yaml
+
+  - name: retrieval-agent
+    project: retrieval-agent
+    namespace: retrieval-agent
+    automated: true
+    valueFiles:
+      - values.yaml
+
+  - name: ingestion-service
+    project: ingestion-service
+    namespace: ingestion-service
     automated: true
     valueFiles:
       - values.yaml
