@@ -161,3 +161,10 @@ apps:
     automated: true
     valueFiles:
       - values.yaml
+
+  - name: ingestion-service
+    project: ingestion-service
+    namespace: ingestion-service
+    automated: true
+    valueFiles:
+      - values.yaml

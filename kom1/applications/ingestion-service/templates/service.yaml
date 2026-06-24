@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingestion-service
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: ingestion-service
+    app.kubernetes.io/instance: ingestion-service
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: ingestion-service
+    app.kubernetes.io/instance: ingestion-service
+  ports:
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP

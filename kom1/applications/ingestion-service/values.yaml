@@ -1,0 +1,116 @@
+image:
+  repository: ghcr.io/aarhusai/ingestion-service
+  tag: "latest"
+  pullPolicy: Always
+
+replicaCount: 1
+
+service:
+  port: 8000
+
+containerPort: 8000
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    cpu: "2"
+    memory: 4Gi
+
+# Persistent cache for HF + fastembed models (BM42 sparse ~80 MB, e5-large
+# tokenizer ~5 MB). Mirrors the `ingestion_model_cache` named volume from compose
+# so models survive pod restarts instead of re-downloading on every cold start.
+# The pipeline warm-up at lifespan startup touches both so the first ingest
+# never waits on HuggingFace.
+persistence:
+  enabled: true
+  size: 4Gi
+  # storageClassName: ""  # uses the cluster default when empty
+  accessModes:
+    - ReadWriteOnce
+
+# Non-secret configuration. Rendered into the ingestion-service-env ConfigMap.
+# Secret values (API_KEY, EMBEDDING_API_KEY, QDRANT_API_KEY, VISION_LLM_API_KEY,
+# S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY) live in the ingestion-service-secrets
+# sealed secret.
+env:
+  DEBUG: "false"
+  # Per-request upload cap (bytes). Multipart and S3 fetches both honour it.
+  MAX_UPLOAD_BYTES: "104857600"
+
+  # Logging / observability
+  LOG_LEVEL: "INFO"
+  LOG_LEVEL_APP: "INFO"
+  LOG_FORMAT: "text"
+  METRICS_ENABLED: "true"
+  ENABLE_INSPECTION_API: "false"
+
+  # Extraction
+  EXTRACTION_ENGINE: "auto"
+  KREUZBERG_URL: "http://kreuzberg.kreuzberg.svc.cluster.local:8000"
+  KREUZBERG_CONNECT_TIMEOUT: "5.0"
+  KREUZBERG_READ_TIMEOUT: "60.0"
+  KREUZBERG_TLS_VERIFY: "true"
+
+  # Content-based routing (EXTRACTION_ENGINE=auto)
+  EXTRACTION_ROUTER_DEFAULT: "kreuzberg"
+  EXTRACTION_ROUTER_DIAGRAM_ENGINE: "hybrid-diagram"
+  EXTRACTION_ROUTER_DIAGRAM_PROFILE: "diagram-topology"
+  EXTRACTION_ROUTER_MIN_TEXTBOXES: "20"
+  EXTRACTION_ROUTER_DRAWING_RATIO: "2.0"
+
+  # Vision LLM extraction (vision-llm engine / auto diagram engine), via LiteLLM.
+  VISION_LLM_API_BASE_URL: "http://litellm.itkdev.dk/v1"
+  VISION_LLM_MODEL: "AarhusAI-default-v2"
+  VISION_LLM_CONNECT_TIMEOUT: "5.0"
+  VISION_LLM_READ_TIMEOUT: "180.0"
+  VISION_LLM_DPI: "150"
+  VISION_LLM_MAX_PAGES: "20"
+  VISION_LLM_TLS_VERIFY: "true"
+  VISION_LLM_LANGUAGE_HINT: "Danish"
+  VISION_LLM_PROFILE: "general"
+
+  # Document rendering (Gotenberg)
+  GOTENBERG_URL: "http://gotenberg.gotenberg.svc.cluster.local:3000"
+  GOTENBERG_CONNECT_TIMEOUT: "5.0"
+  GOTENBERG_READ_TIMEOUT: "120.0"
+  GOTENBERG_TLS_VERIFY: "false"
+
+  # Chunking — token mode measures with the embedding model's HF tokenizer
+  # (TOKENIZER_MODEL, falls back to EMBEDDING_MODEL when empty) so chunks respect
+  # the 512-token cap on e5-large.
+  CHUNK_SIZE: "500"
+  CHUNK_OVERLAP: "100"
+  CHUNK_SPLIT_BY: "markdown"
+  TOKENIZER_MODEL: "intfloat/multilingual-e5-large"
+  TOKENIZER_REVISION: "3d7cfbdacd47fdda877c5cd8a79fbcc4f2a574f3"
+
+  # Dense embedder (must match the retrieval agent: same endpoint/model/dim/prefix).
+  EMBEDDING_PROVIDER: "openai-compat"
+  EMBEDDING_API_BASE_URL: "https://embed.itkdev.dk/v1"
+  EMBEDDING_MODEL: "intfloat/multilingual-e5-large"
+  EMBEDDING_DIM: "1024"
+  # e5 wants "passage: " on docs, "query: " on queries.
+  EMBEDDING_PREFIX_DOC: "passage: "
+  EMBEDDING_PREFIX_QUERY: "query: "
+
+  # Sparse embedder — required so named vectors (text-dense + text-sparse) are
+  # written; the retrieval agent expects them and they unlock server-side RRF hybrid.
+  ENABLE_SPARSE_EMBEDDINGS: "true"
+  SPARSE_EMBEDDING_PROVIDER: "fastembed"
+  SPARSE_EMBEDDING_MODEL: "Qdrant/bm42-all-minilm-l6-v2-attentions"
+
+  # Qdrant — shared collection written here and read by the retrieval agent.
+  QDRANT_URI: "http://openwebui-qdrant.openwebui.svc.cluster.local:6333"
+  QDRANT_INDEX: "ingestion_files"
+
+  # S3 (Rook-Ceph object storage; same bucket Open WebUI stores uploads in).
+  S3_ENDPOINT_URL: "http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc"
+  # Pinned to Open WebUI's bucket so a stolen API key can't pull arbitrary objects.
+  S3_ALLOWED_BUCKETS: "openwebui"
+
+  # Container user has no writable $HOME, so point HF + fastembed caches under
+  # /cache, backed by the persistent volume above.
+  HF_HOME: "/cache/hf"
+  FASTEMBED_CACHE_PATH: "/cache/fastembed"
