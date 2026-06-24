@@ -18,6 +18,10 @@ spec:
         app.kubernetes.io/name: kreuzberg
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      # The Service named "kreuzberg" makes Kubernetes inject Docker-link env vars
+      # (KREUZBERG_PORT=tcp://<clusterIP>:8000), which collides with the app's own
+      # KREUZBERG_PORT (expects a bare u16). Disable the link injection.
+      enableServiceLinks: false
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
