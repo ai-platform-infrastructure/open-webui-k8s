@@ -301,7 +301,7 @@ open-webui:
     - name: DEFAULT_GROUP_SHARE_PERMISSION
       value: "members"
     - name: DEFAULT_MODEL_PARAMS
-      value: '{"function_calling": "native"}'
+      value: '{"function_calling": "default"}'
 
     # Admin
     - name: WEBUI_ADMIN_EMAIL
