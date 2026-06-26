@@ -7,7 +7,7 @@ open-webui:
   # -- Open WebUI image tags can be found here: https://github.com/open-webui/open-webui
   image:
     repository: itkdev/openwebui
-    tag: "v0.9.6-3"
+    tag: "v0.9.6-4"
     pullPolicy: "IfNotPresent"
 
   ollama:
@@ -301,7 +301,7 @@ open-webui:
     - name: DEFAULT_GROUP_SHARE_PERMISSION
       value: "members"
     - name: DEFAULT_MODEL_PARAMS
-      value: '{"function_calling": "default"}'
+      value: '{"function_calling": "native"}'
 
     # Admin
     - name: WEBUI_ADMIN_EMAIL
