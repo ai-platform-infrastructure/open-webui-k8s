@@ -88,13 +88,6 @@ apps:
       - litellm-values.yaml
       - cloudnative-pg-values.yaml
 
-  - name: tika
-    project: tika
-    namespace: tika
-    automated: true
-    valueFiles:
-      - values.yaml
-
   - name: kreuzberg
     project: kreuzberg
     namespace: kreuzberg
@@ -105,13 +98,6 @@ apps:
   - name: gotenberg
     project: gotenberg
     namespace: gotenberg
-    automated: true
-    valueFiles:
-      - values.yaml
-
-  - name: doc-ingestion
-    project: doc-ingestion
-    namespace: doc-ingestion
     automated: true
     valueFiles:
       - values.yaml

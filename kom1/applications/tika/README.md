@@ -1,1 +1,0 @@
-helm upgrade tika --set image.tag=3.2.0 --set image.repository=itkdev/tika tika/tika
